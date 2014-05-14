@@ -1,0 +1,1 @@
+1. Input data must be prepared so that each record ends with a LF and each attribute value ends with a SP.
