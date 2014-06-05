@@ -1,0 +1,8 @@
+BOOST_AUTO_TEST_SUITE (Predecon)
+
+BOOST_AUTO_TEST_CASE(VarianceAlongAttr)
+{
+
+}
+
+BOOST_AUTO_TEST_SUITE_END()
