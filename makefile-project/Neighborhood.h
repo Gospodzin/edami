@@ -9,10 +9,12 @@ class Neighborhood
 {
 private:
 	Point thePoint;
-	std::vector<Point> points;
+	vector<Point> points;
 
 public:
-	Neighborhood(Point thePoint, std::vector<Point> points) : thePoint(thePoint), points(points) {}
+	Neighborhood(Point thePoint, vector<Point> points) : thePoint(thePoint), points(points) {}
+
+	void print();
 
 	int getCount();
 	double getVarianceAlongAttr(int n, double (*distanceMeasure)(Point,Point));

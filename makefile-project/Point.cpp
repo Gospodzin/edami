@@ -5,7 +5,7 @@ Point::Point(vector<double> coordinates)
 	this->coordinates = coordinates;
 }
 
-string Point::print()
+void Point::print()
 {
 	string toPrint = "(";
 	for(vector<double>::iterator it = coordinates.begin(); it != coordinates.end(); ++it)
@@ -17,7 +17,7 @@ string Point::print()
 		toPrint += ",";
 	}
 	toPrint[toPrint.size()-1] = ')';
-	return toPrint;
+	cout << toPrint << endl;
 }
 
 int Point::getVariablesNumber()

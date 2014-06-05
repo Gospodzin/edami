@@ -12,7 +12,7 @@ public:
 	Point(vector<double> coordinates);
 	Point(const Point& other) : coordinates( other.coordinates ){}
 
-	string print();
+	void print();
 
 	int getVariablesNumber();
 	double getNthAttr(int n);
