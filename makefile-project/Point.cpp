@@ -16,7 +16,7 @@ string Point::print()
 		toPrint += str;
 		toPrint += ",";
 	}
-	toPrint[toPrint.size()] = ')';
+	toPrint[toPrint.size()-1] = ')';
 	return toPrint;
 }
 
