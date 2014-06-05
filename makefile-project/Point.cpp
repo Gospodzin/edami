@@ -20,7 +20,7 @@ void Point::print()
 	cout << toPrint << endl;
 }
 
-int Point::getVariablesNumber()
+int Point::getAttrsNumber()
 {
 	return coordinates.size();
 }
@@ -32,7 +32,7 @@ double Point::getNthAttr(int n)
 
 Point Point::getProjectionOntoNthAttr(int n)
 {
-	vector<double> coordsOfProjection(getVariablesNumber(), 0.0);
+	vector<double> coordsOfProjection(getAttrsNumber(), 0.0);
 	coordsOfProjection[n] = coordinates[n];
 	return Point(coordsOfProjection);
 }

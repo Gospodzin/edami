@@ -14,7 +14,7 @@ public:
 
 	void print();
 
-	int getVariablesNumber();
+	int getAttrsNumber();
 	double getNthAttr(int n);
 	Point getProjectionOntoNthAttr(int n);
 };

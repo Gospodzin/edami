@@ -18,6 +18,7 @@ public:
 
 	int getCount();
 	double getVarianceAlongAttr(int n, double (*distanceMeasure)(Point,Point));
+	vector<double> getSubspacePreferenceVector(double delta, double kappa, double (*distanceMeasure)(Point,Point));
 };
 
 #endif 

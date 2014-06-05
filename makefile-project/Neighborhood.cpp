@@ -21,3 +21,15 @@ double Neighborhood::getVarianceAlongAttr(int n, double (*distanceMeasure)(Point
 	}
 	return sum / getCount();
 }
+
+vector<double> Neighborhood::getSubspacePreferenceVector(double delta, double kappa, double (*distanceMeasure)(Point,Point)){
+	vector<double> subspacePreferenceVector;
+	for (int i = 0; i < thePoint.getAttrsNumber(); ++i) {
+		double variance = getVarianceAlongAttr(i, distanceMeasure);
+		if(variance <= delta)
+			subspacePreferenceVector.push_back(kappa);
+		else
+			subspacePreferenceVector.push_back(1.0);
+	}
+	return subspacePreferenceVector;
+}
