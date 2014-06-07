@@ -9,6 +9,7 @@ private:
 	vector<double> coordinates;
 
 public:
+	Point(){}
 	Point(vector<double> coordinates);
 	Point(const Point& other) : coordinates( other.coordinates ){}
 
@@ -17,6 +18,8 @@ public:
 	int getAttrsNumber();
 	double getNthAttr(int n);
 	Point getProjectionOntoNthAttr(int n);
+
+	bool operator==(const Point& other);
 };
 
 #endif 

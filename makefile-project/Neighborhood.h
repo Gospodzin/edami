@@ -7,25 +7,21 @@
 
 class Neighborhood
 {
-private:
+protected:
 	Point thePoint;
 	vector<Point> points;
-	vector<double> subspacePreferenceVector;
-	double (*distanceMeasure)(Point,Point);
-	int subspacePreferenceDimensionality;
 
 public:
-	Neighborhood(Point thePoint, vector<Point> points, double (*distanceMeasure)(Point,Point))
-		: thePoint(thePoint), points(points), distanceMeasure(distanceMeasure), subspacePreferenceDimensionality(0) {}
+
+	Neighborhood() {}
+	Neighborhood(Point thePoint, vector<Point> points): thePoint(thePoint), points(points) {}
 
 	void print();
 
 	int getCount();
-	double getVarianceAlongAttr(int n);
-	void computeSubspacePreferenceParameters(double delta, double kappa);
-	vector<double> getSubspacePreferenceVector();
-	int getPreferenceDimensionality();
-	double getPreferenceWeightedDistanceTo(Point point);
+
+	Point getThePoint();
+	vector<Point> getNeighbors();
 };
 
 #endif 

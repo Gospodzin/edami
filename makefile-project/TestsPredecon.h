@@ -1,14 +1,15 @@
 #include "Point.h"
-#include "Neighborhood.h"
+#include "EpsNeighborhood.h"
+#include "WeightedNeighborhood.h"
 
 BOOST_AUTO_TEST_SUITE (Predecon)
 
-Neighborhood getSampleNeighborhood() {
+EpsNeighborhood getSampleNeighborhood() {
 	vector<Point> points;
 	points.push_back(Point( { 1.0, 3.0 }));
 	points.push_back(Point( { -3.0, 4.0 }));
 	points.push_back(Point( { 2.0, -5.0 }));
-	Neighborhood epsNeighborhood(Point( { 0.0, 0.0 }), points, euclideanDistance);
+	EpsNeighborhood epsNeighborhood(Point( { 0.0, 0.0 }), points, euclideanDistance);
 	return epsNeighborhood;
 }
 
@@ -36,6 +37,36 @@ BOOST_AUTO_TEST_CASE(PreferenceWeightedDistance)
 	auto actual = epsNeighborhood.getPreferenceWeightedDistanceTo(Point({2.0,5.0}));
 	auto expected = sqrt(1000.0 * 4.0 + 1.0 * 25.0);
 	BOOST_CHECK_CLOSE(actual, expected, 0.0001);
+}
+
+EpsNeighborhood createAndHandleNeighborhood(Point thePoint, vector<Point> points) {
+	auto neighborhood = EpsNeighborhood(thePoint, points, euclideanDistance);
+	neighborhood.computeSubspacePreferenceParameters(10.0, 1000.0);
+	return neighborhood;
+}
+
+BOOST_AUTO_TEST_CASE(WeightedNeighborhoodTest)
+{
+	EpsNeighborhood theNeighborhood = getSampleNeighborhood();
+	theNeighborhood.computeSubspacePreferenceParameters(10.0, 1000.0);
+
+	vector<EpsNeighborhood> otherNeighborhoods;
+	vector<Point> points1 = {Point({ 1.0, 3.0 }), Point({ 1.1, 3.0 }), Point({ 1.0, 2.9 })};
+	otherNeighborhoods.push_back(createAndHandleNeighborhood(Point({ 1.0, 3.0 }), points1));
+
+	vector<Point> points2 = {Point({ -3.1, 4.1 }), Point({ -2.9, 4.1 }), Point({ -2.9, 3.9 })};
+	otherNeighborhoods.push_back(createAndHandleNeighborhood(Point({ -3.0, 4.0 }), points2));
+	vector<Point> points3 = {Point({ 2.1, -5.0 }), Point({ 2.0, -5.1 }), Point({ 2.1, -5.1 })};
+	otherNeighborhoods.push_back(createAndHandleNeighborhood(Point({ 2.0, -5.0 }), points3));
+
+	WeightedNeighborhood weighted1(125.0, theNeighborhood, otherNeighborhoods, 10.0, 1000.0);
+	BOOST_CHECK(weighted1.getThePoint() == theNeighborhood.getThePoint());
+	vector<Point> expecteds = {Point({ 1.0, 3.0 })};
+	vector<Point> actuals = weighted1.getNeighbors();
+
+	BOOST_CHECK(expecteds.size() == actuals.size());
+	for (int i = 0; i < expecteds.size(); ++i)
+		BOOST_CHECK(expecteds[i] == actuals[i]);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
