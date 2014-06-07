@@ -1,7 +1,7 @@
 #include "Point.h"
 #include "Helpers.h"
 #include "Distances.h"
-#include "EpsNeighborhoodDetermination.h"
+#include "EpsNeighborhoodCalculation.h"
 
 BOOST_AUTO_TEST_SUITE (Distances)
 

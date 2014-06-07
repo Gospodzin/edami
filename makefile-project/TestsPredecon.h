@@ -1,6 +1,7 @@
 #include "Point.h"
 #include "EpsNeighborhood.h"
 #include "WeightedNeighborhood.h"
+#include "PreDeCon.h"
 
 BOOST_AUTO_TEST_SUITE (Predecon)
 
@@ -67,6 +68,12 @@ BOOST_AUTO_TEST_CASE(WeightedNeighborhoodTest)
 	BOOST_CHECK(expecteds.size() == actuals.size());
 	for (int i = 0; i < expecteds.size(); ++i)
 		BOOST_CHECK(expecteds[i] == actuals[i]);
+}
+
+BOOST_AUTO_TEST_CASE(VecContains)
+{
+	BOOST_CHECK(vecContains({Point({1.0,0.0}), Point({1.0,1.0}), Point({0.0,0.0})}, Point({0.0,0.0})));
+	BOOST_CHECK(!vecContains({Point({1.0,0.0}), Point({1.0,1.0}), Point({0.0,0.0})}, Point({2.0,0.0})));
 }
 
 BOOST_AUTO_TEST_SUITE_END()
