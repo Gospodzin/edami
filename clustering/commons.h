@@ -13,6 +13,10 @@
 #include <vector>
 #include <string>
 #include <cmath>
+#include <numeric>
+#include <algorithm>
+
+
 
 const int UNCLASSIFIED = -1;
 const int NOISE = 0;

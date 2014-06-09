@@ -20,7 +20,6 @@ public:
 	int ClId = UNCLASSIFIED;
 	double RefDist;
 	int id;
-protected:
 	vector<double> coordinates;
 };
 

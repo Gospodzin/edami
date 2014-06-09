@@ -7,6 +7,7 @@
 namespace measures
 {
 	double euclideanDistance(Point p1, Point p2);
-	double cosSim(Point p1, Point p2);
+	double minusCosSim(Point p1, Point p2);
+	double minusNormCosSim(Point p1, Point p2);
 }
 #endif 

@@ -7,8 +7,8 @@ using namespace std;
 void main ()
 {
 	vector<Point> data = utils::loadData("sports.mat");
-	HSetOfPoints setOfPoints(data);
-	setOfPoints.setIds();
-	Clustering::dbscan(setOfPoints, 1.1, 3, measures::euclideanDistance);
+	BaseSetOfPoints setOfPoints(data);
+	setOfPoints.normalize();
+	Clustering::dbscan(setOfPoints, -0.99, 3, measures::minusNormCosSim);
 	system("pause");
 }
