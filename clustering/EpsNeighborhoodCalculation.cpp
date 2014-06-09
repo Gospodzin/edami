@@ -1,6 +1,6 @@
 #include "EpsNeighborhoodCalculation.h"
 
-#include "Distances.h"
+#include "Measures.h"
 
 EpsNeighborhood bruteForceEpsNeighborhoodCalc(double eps, Point thePoint, vector<Point> otherPoints, double (*distanceMeasure)(Point,Point)){
 	vector<Point> pointsInNeighborhood;

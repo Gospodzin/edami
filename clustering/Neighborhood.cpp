@@ -1,5 +1,9 @@
 #include "Neighborhood.h"
 
+Neighborhood::Neighborhood()
+{
+}
+
 void Neighborhood::print() {
 	cout << "The point" << endl;
 	thePoint.print();

@@ -5,21 +5,22 @@
 
 class Point
 {
-private:
-	vector<double> coordinates;
-
 public:
-	Point(){}
+	Point();
 	Point(vector<double> coordinates);
-	Point(const Point& other) : coordinates( other.coordinates ){}
 
 	void print();
-
+	void set(int n, double f){ coordinates[n] = f; }
 	int getAttrsNumber();
 	double getNthAttr(int n);
 	Point getProjectionOntoNthAttr(int n);
 
 	bool operator==(const Point& other);
+
+	int ClId = UNCLASSIFIED;
+
+private:
+	vector<double> coordinates;
 };
 
 #endif 

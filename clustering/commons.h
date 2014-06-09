@@ -14,6 +14,9 @@
 #include <string>
 #include <cmath>
 
+const int UNCLASSIFIED = -1;
+const int NOISE = 0;
+
 using namespace std;
 
 #endif /* COMMONS_H_ */

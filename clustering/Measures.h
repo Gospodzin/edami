@@ -1,8 +1,8 @@
 #include "commons.h"
 #include "Point.h"
 
-#ifndef _DISTANCES_H
-#define _DISTANCES_H
+#ifndef _MEASURES_H
+#define _MEASURES_H
 
 double euclideanDistance(Point p1, Point p2);
 

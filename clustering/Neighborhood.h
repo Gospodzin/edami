@@ -13,7 +13,7 @@ protected:
 
 public:
 
-	Neighborhood() {}
+	Neighborhood();
 	Neighborhood(Point thePoint, vector<Point> points): thePoint(thePoint), points(points) {}
 
 	void print();
