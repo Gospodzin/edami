@@ -17,6 +17,11 @@
 const int UNCLASSIFIED = -1;
 const int NOISE = 0;
 
+const int NOT_DECIDED = 0;
+const int NEIGHBOUR = 1;
+const int NOT_NEIGHBOUR = 2;
+
+
 using namespace std;
 
 #endif /* COMMONS_H_ */

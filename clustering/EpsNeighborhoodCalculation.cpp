@@ -8,5 +8,5 @@ EpsNeighborhood bruteForceEpsNeighborhoodCalc(double eps, Point thePoint, vector
 	    if(distanceMeasure(thePoint,*it) <= eps)
 	    	pointsInNeighborhood.push_back(*it);
 	}
-	return EpsNeighborhood(thePoint, pointsInNeighborhood, euclideanDistance);
+	return EpsNeighborhood(thePoint, pointsInNeighborhood, measures::euclideanDistance);
 }

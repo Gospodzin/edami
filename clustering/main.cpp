@@ -1,18 +1,14 @@
 #include <iostream>
 #include "utils.h"
 #include "Clustering.h"
-#include "BaseSetOfPoints.h"
-#include "TISetOfPoints.h"
-#include "Measures.h"
 
 using namespace std;
 
 void main ()
 {
 	vector<Point> data = utils::loadData("sports.mat");
-	TISetOfPoints tISetOfPoints(data);
-	tISetOfPoints.calculateRefDists(tISetOfPoints[6], euclideanDistance);
-	tISetOfPoints.sortByRefDist();
-	tISetOfPoints.setIds();
-	Clustering::dbscan(tISetOfPoints, 1.1, 3, euclideanDistance);
+	HSetOfPoints setOfPoints(data);
+	setOfPoints.setIds();
+	Clustering::dbscan(setOfPoints, 1.1, 3, measures::euclideanDistance);
+	system("pause");
 }

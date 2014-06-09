@@ -33,3 +33,14 @@ void utils::deleteSeed(vector<Point*>& seeds, Point* seed)
 {
 	seeds.erase(std::find(seeds.begin(), seeds.end(), seed));
 }
+
+void utils::printVector(vector<double> vec) {
+	cout << "(";
+	for (int i = 0; i < vec.size(); ++i) {
+		cout << vec.at(i);
+		if (i < vec.size())
+			cout << ",";
+	}
+	cout << ")";
+	cout << endl;
+}

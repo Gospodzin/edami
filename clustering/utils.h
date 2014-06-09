@@ -9,6 +9,7 @@ namespace utils
 	vector<Point> loadData(string fileName);
 	void changeClIds(vector<Point*> seeds, int clId);
 	void deleteSeed(vector<Point*>& seeds, Point* seed);
+	void printVector(vector<double> vec);
 }
 
 #endif 

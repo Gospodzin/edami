@@ -1,5 +1,5 @@
 #include "EpsNeighborhood.h"
-#include "Helpers.h"
+#include "utils.h"
 
 double EpsNeighborhood::getVarianceAlongAttr(int n) {
 	double sum = 0.0;

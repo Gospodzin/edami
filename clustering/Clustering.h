@@ -2,7 +2,11 @@
 #define _CLUSTERING_H
 
 #include "Point.h"
+#include "Measures.h"
+#include "SetOfPoints.h"
 #include "BaseSetOfPoints.h"
+#include "TISetOfPoints.h"
+#include "HSetOfPoints.h"
 
 class Clustering
 {
