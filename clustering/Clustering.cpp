@@ -1,13 +1,13 @@
 #include "clustering.h"
 #include "utils.h"
 
-void Clustering::dbscan(SetOfPoints& setOfPoints, double eps, int minPts)
+void Clustering::dbscan(SetOfPoints& setOfPoints, double eps, int minPts, double(*measure)(Point, Point))
 {
 	int clusterId = nextId(NOISE);
 	for (int i = 0; i < setOfPoints.size(); i++)
 	{
 		Point& point = setOfPoints[i];
-		if (point.ClId == UNCLASSIFIED && expandCluster(setOfPoints, point, clusterId, eps, minPts))
+		if (point.ClId == UNCLASSIFIED && expandCluster(setOfPoints, point, clusterId, eps, minPts, measure))
 		{
 			clusterId = nextId(clusterId);
 		}
@@ -19,9 +19,9 @@ int Clustering::nextId(int currentId)
 	return currentId + 1;
 }
 
-bool Clustering::expandCluster(SetOfPoints& setOfPoints, Point& point, int clId, double eps, int minPts)
+bool Clustering::expandCluster(SetOfPoints& setOfPoints, Point& point, int clId, double eps, int minPts, double(*measure)(Point, Point))
 {
-	vector<Point*> seeds = setOfPoints.regionQuery(point, eps);
+	vector<Point*> seeds = setOfPoints.regionQuery(point, eps, measure);
 	if (seeds.size() < minPts) // no core point
 	{
 		point.ClId = NOISE;
@@ -34,7 +34,7 @@ bool Clustering::expandCluster(SetOfPoints& setOfPoints, Point& point, int clId,
 		while (!seeds.empty())
 		{
 			Point* currentP = seeds.front();
-			vector<Point*> result= setOfPoints.regionQuery(*currentP, eps);
+			vector<Point*> result = setOfPoints.regionQuery(*currentP, eps, measure);
 			if (result.size() >= minPts)
 				for (int i = 0; i < result.size(); i++)
 				{

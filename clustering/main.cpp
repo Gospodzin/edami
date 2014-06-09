@@ -1,15 +1,16 @@
 #include <iostream>
 #include "utils.h"
 #include "Clustering.h"
-#include "SetOfPoints.h"
+#include "BaseSetOfPoints.h"
+#include "TISetOfPoints.h"
+#include "Measures.h"
 
 using namespace std;
 
 void main ()
 {
-	string fileName = "sports.mat";
-	vector<Point> dataSet = utils::loadData(fileName);
-	SetOfPoints setOfPoints(dataSet);
-	Clustering dbscan;
-	dbscan.dbscan(setOfPoints, 1.1, 3);
+	vector<Point> data = utils::loadData("sports.mat");
+	TISetOfPoints tISetOfPoints(data);
+	tISetOfPoints.sortByReferencePoint(tISetOfPoints[6], euclideanDistance);
+	Clustering::dbscan(tISetOfPoints, 1.1, 3, euclideanDistance);
 }
