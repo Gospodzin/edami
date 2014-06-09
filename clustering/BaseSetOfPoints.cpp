@@ -10,7 +10,7 @@ BaseSetOfPoints::~BaseSetOfPoints()
 {
 }
 
-vector<Point*> BaseSetOfPoints::regionQuery(Point point, double eps, double(*measure)(Point, Point))
+vector<Point*> BaseSetOfPoints::regionQuery(Point& point, double eps, double(*measure)(Point, Point))
 {
 	vector<Point*> neighbours;
 	for (vector<Point>::iterator it = dataSet.begin(); it != dataSet.end(); ++it) {

@@ -8,7 +8,7 @@ class BaseSetOfPoints : public SetOfPoints
 public:
 	BaseSetOfPoints(vector<Point> dataSet);
 	~BaseSetOfPoints();
-	vector<Point*> regionQuery(Point point, double eps, double(*measure)(Point, Point));
+	vector<Point*> regionQuery(Point& point, double eps, double(*measure)(Point, Point));
 };
 
 #endif 

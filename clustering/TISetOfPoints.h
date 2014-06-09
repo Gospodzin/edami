@@ -7,10 +7,10 @@ class TISetOfPoints : public SetOfPoints
 public:
 	TISetOfPoints(vector<Point> dataSet);
 	~TISetOfPoints();
-	vector<Point*> regionQuery(Point point, double eps, double(*measure)(Point, Point));
-	void sortByReferencePoint(Point refP, double(*measure)(Point, Point));
-private:
-	vector<double> rDists;
+	vector<Point*> regionQuery(Point& point, double eps, double(*measure)(Point, Point));
+	void sortByRefDist();
+	void calculateRefDists(Point refP, double(*measure)(Point, Point));
+	void setIds();
 };
 
 #endif

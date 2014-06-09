@@ -18,8 +18,9 @@ public:
 	bool operator==(const Point& other);
 
 	int ClId = UNCLASSIFIED;
-
-private:
+	double RefDist;
+	int id;
+protected:
 	vector<double> coordinates;
 };
 

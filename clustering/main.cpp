@@ -11,6 +11,8 @@ void main ()
 {
 	vector<Point> data = utils::loadData("sports.mat");
 	TISetOfPoints tISetOfPoints(data);
-	tISetOfPoints.sortByReferencePoint(tISetOfPoints[6], euclideanDistance);
+	tISetOfPoints.calculateRefDists(tISetOfPoints[6], euclideanDistance);
+	tISetOfPoints.sortByRefDist();
+	tISetOfPoints.setIds();
 	Clustering::dbscan(tISetOfPoints, 1.1, 3, euclideanDistance);
 }
