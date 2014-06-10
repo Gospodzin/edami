@@ -1,9 +1,13 @@
 #include "TISetOfPoints.h"
 #include <algorithm>
 
-TISetOfPoints::TISetOfPoints(vector<Point> dataSet)
+TISetOfPoints::TISetOfPoints(vector<Point> dataSet, Point refP, double(*measure)(Point, Point))
 {
 	this->dataSet = dataSet;
+	calculateRefDists(refP, measure);
+	sortByRefDist();
+	setIds();
+
 }
 
 TISetOfPoints::~TISetOfPoints()
