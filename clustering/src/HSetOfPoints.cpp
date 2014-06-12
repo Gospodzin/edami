@@ -5,7 +5,7 @@ HSetOfPoints::HSetOfPoints(vector<Point> dataSet)
 {
 	this->dataSet = dataSet;
 	flags.resize(dataSet.size());
-	for (int i = 0; i < dataSet.size(); ++i)
+	for (unsigned i = 0; i < dataSet.size(); ++i)
 	{
 		flags[i].resize(dataSet.size() - i);
 		for (vector<int>::iterator it = flags[i].begin(); it != flags[i].end(); ++it) {
@@ -25,15 +25,15 @@ vector<Point*> HSetOfPoints::regionQuery(Point& point, double eps, double(*measu
 	for (vector<Point>::iterator it = dataSet.begin(); it != dataSet.end(); ++it) {
 		int left;
 		int right;
-		if (point.id <= it->id)
+		if (point.Id <= it->Id)
 		{
-			left = point.id;
-			right = it->id - point.id;
+			left = point.Id;
+			right = it->Id - point.Id;
 		}
 		else
 		{
-			left = it->id;
-			right = point.id - it->id;
+			left = it->Id;
+			right = point.Id - it->Id;
 		}
 
 		if (flags[left][right] == NOT_DECIDED)
@@ -58,6 +58,6 @@ vector<Point*> HSetOfPoints::regionQuery(Point& point, double eps, double(*measu
 
 void HSetOfPoints::setIds()
 {
-	for (int i = 0; i < dataSet.size(); i++)
-		dataSet[i].id = i;
+	for (unsigned i = 0; i < dataSet.size(); i++)
+		dataSet[i].Id = i;
 }

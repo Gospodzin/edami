@@ -18,13 +18,13 @@ vector<Point*> TISetOfPoints::regionQuery(Point& point, double eps, double(*meas
 {
 	vector<Point*> neighbours;
 	//search upwards
-	for (int i = point.id; i >= 0 && abs(point.RefDist - dataSet[i].RefDist) <= eps; i--)
+	for (int i = point.Id; i >= 0 && abs(point.RefDist - dataSet[i].RefDist) <= eps; i--)
 	{
 		if (measure(point, dataSet[i]) <= eps)
 			neighbours.push_back(&dataSet[i]);
 	}
 	//search downwards
-	for (int i = point.id + 1; i < dataSet.size() && abs(point.RefDist - dataSet[i].RefDist) <= eps; i++)
+	for (unsigned i = point.Id + 1; i < dataSet.size() && abs(point.RefDist - dataSet[i].RefDist) <= eps; i++)
 	{
 		if (measure(point, dataSet[i]) <= eps)
 			neighbours.push_back(&dataSet[i]);
@@ -48,6 +48,6 @@ void TISetOfPoints::calculateRefDists(Point refP, double(*measure)(Point, Point)
 
 void TISetOfPoints::setIds()
 {
-	for (int i = 0; i < dataSet.size(); i++)
-		dataSet[i].id = i;
+	for (unsigned i = 0; i < dataSet.size(); i++)
+		dataSet[i].Id = i;
 }

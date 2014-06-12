@@ -22,7 +22,7 @@ int Clustering::nextId(int currentId)
 bool Clustering::expandCluster(SetOfPoints& setOfPoints, Point& point, int clId, double eps, int minPts, double(*measure)(Point, Point))
 {
 	vector<Point*> seeds = setOfPoints.regionQuery(point, eps, measure);
-	if (seeds.size() < minPts) // no core point
+	if ((int)seeds.size() < minPts) // no core point
 	{
 		point.ClId = NOISE;
 		return false;
@@ -35,8 +35,8 @@ bool Clustering::expandCluster(SetOfPoints& setOfPoints, Point& point, int clId,
 		{
 			Point* currentP = seeds.front();
 			vector<Point*> result = setOfPoints.regionQuery(*currentP, eps, measure);
-			if (result.size() >= minPts)
-				for (int i = 0; i < result.size(); i++)
+			if ((int)result.size() >= minPts)
+			for (unsigned i = 0; i < result.size(); i++)
 				{
 					Point* resultP = result[i];
 					if (resultP->ClId == UNCLASSIFIED || resultP->ClId == NOISE)

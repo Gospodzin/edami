@@ -1,10 +1,10 @@
 #include <iostream>
-#include "utils.h"
-#include "Clustering.h"
+#include "src/utils.h"
+#include "src/Clustering.h"
 
 using namespace std;
 
-void main ()
+void main()
 {
 	vector<Point> data = utils::loadData("sports.mat");
 	TISetOfPoints setOfPoints(data, data[6], measures::euclideanDistance);

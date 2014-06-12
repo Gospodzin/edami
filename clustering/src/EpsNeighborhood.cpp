@@ -33,7 +33,7 @@ int EpsNeighborhood::getPreferenceDimensionality(){
 double EpsNeighborhood::getPreferenceWeightedDistanceTo(Point otherPoint){
 	double sum = 0.0;
 	for (int i = 0; i < thePoint.getAttrsNumber(); ++i) {
-		double diff = thePoint.getNthAttr(i) - otherPoint.getNthAttr(i);
+		double diff = thePoint[i] - otherPoint[i];
 		sum += subspacePreferenceVector[i] * diff * diff;
 	}
 	return sqrt(sum);

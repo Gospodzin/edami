@@ -59,7 +59,7 @@ void utils::deleteSeed(vector<Point*>& seeds, Point* seed)
 
 void utils::printVector(vector<double> vec) {
 	cout << "(";
-	for (int i = 0; i < vec.size(); ++i) {
+	for (unsigned i = 0; i < vec.size(); ++i) {
 		cout << vec.at(i);
 		if (i < vec.size())
 			cout << ",";

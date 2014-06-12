@@ -9,5 +9,7 @@ namespace measures
 	double euclideanDistance(Point p1, Point p2);
 	double minusCosSim(Point p1, Point p2);
 	double minusNormCosSim(Point p1, Point p2);
+	double minusTanimotoSim(Point p1, Point p2);
+	double minusNormTanimotoSim(Point p1, Point p2);
 }
 #endif 

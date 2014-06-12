@@ -12,14 +12,14 @@ public:
 	void print();
 	void set(int n, double f){ coordinates[n] = f; }
 	int getAttrsNumber();
-	double getNthAttr(int n);
+	double& operator[](int n);
 	Point getProjectionOntoNthAttr(int n);
 
 	bool operator==(const Point& other);
 
 	int ClId;
 	double RefDist;
-	int id;
+	int Id;
 	vector<double> coordinates;
 };
 
