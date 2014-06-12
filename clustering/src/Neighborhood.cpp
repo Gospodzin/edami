@@ -22,5 +22,5 @@ vector<Point> Neighborhood::getNeighbors(){
 }
 
 int Neighborhood::getCount() {
-	return (points.size()) + 1;
+	return points.size();
 }

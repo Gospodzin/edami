@@ -9,3 +9,6 @@ main: $(OBJ_FILES)
 
 obj/%.o: src/%.cpp
 	g++ $(CC_FLAGS) -c -o $@ $<
+	
+clean:
+	rm -rf obj/*o main

@@ -7,6 +7,7 @@
 class WeightedNeighborhood : public Neighborhood
 {
 public:
+	WeightedNeighborhood(){}
 	WeightedNeighborhood(double epsilon, EpsNeighborhood theNeighborhood, vector<EpsNeighborhood> otherNeighborhoods, double delta, double kappa);
 };
 

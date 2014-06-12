@@ -2,6 +2,7 @@
 #include "EpsNeighborhood.h"
 #include "WeightedNeighborhood.h"
 #include "PreDeCon.h"
+#include "utils.h"
 
 BOOST_AUTO_TEST_SUITE (Predecon)
 
@@ -16,7 +17,8 @@ EpsNeighborhood getSampleNeighborhood() {
 
 BOOST_AUTO_TEST_CASE(VarianceAlongAttr)
 {
-	auto epsNeighborhood = getSampleNeighborhood();
+	auto epsNeighborhood = EpsNeighborhood(Point( { 0.0, 0.0 }),
+			{Point( { 0.0, 0.0 }), Point( { 1.0, 3.0 }), Point( { -3.0, 4.0 }), Point( { 2.0, -5.0 })}, measures::euclideanDistance);
 	BOOST_CHECK_CLOSE(epsNeighborhood.getVarianceAlongAttr(0), 3.5, 0.0001);
 	BOOST_CHECK_CLOSE(epsNeighborhood.getVarianceAlongAttr(1), 12.5, 0.0001);
 }
@@ -74,6 +76,18 @@ BOOST_AUTO_TEST_CASE(VecContains)
 {
 	BOOST_CHECK(vecContains({Point({1.0,0.0}), Point({1.0,1.0}), Point({0.0,0.0})}, Point({0.0,0.0})));
 	BOOST_CHECK(!vecContains({Point({1.0,0.0}), Point({1.0,1.0}), Point({0.0,0.0})}, Point({2.0,0.0})));
+}
+
+BOOST_AUTO_TEST_CASE(PreDeConTest)
+{
+	vector<Point> points = utils::loadDataMichal("");
+	for (int i = 0; i < points.size(); ++i) {
+		points[i].print();
+	}
+	runPredecon(points, 1.1, 3, 2, 0.0, 100.0);
+	for (int i = 0; i < points.size(); ++i) {
+		cout << points[i].ClId << endl;
+	}
 }
 
 BOOST_AUTO_TEST_SUITE_END()

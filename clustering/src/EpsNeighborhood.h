@@ -12,6 +12,7 @@ private:
 	int subspacePreferenceDimensionality;
 
 public:
+	EpsNeighborhood(){}
 	EpsNeighborhood(Point thePoint, vector<Point> points, double (*distanceMeasure)(Point,Point))
 		: Neighborhood(thePoint, points), distanceMeasure(distanceMeasure), subspacePreferenceDimensionality(0) {}
 

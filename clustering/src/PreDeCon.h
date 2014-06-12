@@ -12,5 +12,6 @@ bool isCorePoint(EpsNeighborhood epsNeighborhood, WeightedNeighborhood weightedN
 bool isDirectlyReachable(EpsNeighborhood p1EpsNeighborhood, WeightedNeighborhood p1WeightedNeighborhood,
 						 EpsNeighborhood p2EpsNeighborhood, Point p2, int lambda, int mu);
 
+void runPredecon(vector<Point> & D, double eps, double mu, double lambda, double delta, double kappa);
 
 #endif /* PREDECON_H_ */
