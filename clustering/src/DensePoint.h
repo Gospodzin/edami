@@ -9,7 +9,7 @@ public:
 	DensePoint();
 	DensePoint(vector<double> coordinates) : Coordinates(coordinates) {}
 	void print();
-	Point& getProjectionOntoNthAttr(int n);
+//	Point& getProjectionOntoNthAttr(int n);
 
 	int size() const;
 	void normalize();
@@ -20,8 +20,6 @@ public:
 
 
 	vector<double> Coordinates;
-
-
 };
 
 #endif

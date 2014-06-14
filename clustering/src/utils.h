@@ -23,7 +23,7 @@ void utils::deleteSeed(vector<T*>& seeds, T* seed)
 template<class T>
 void utils::changeClIds(vector<T*> seeds, int clId)
 {
-	for (vector<T*>::iterator it = seeds.begin(); it != seeds.end(); ++it)
+	for (typename vector<T*>::iterator it = seeds.begin(); it != seeds.end(); ++it)
 		(*it)->ClId = clId;
 }
 #endif 

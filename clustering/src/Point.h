@@ -21,15 +21,12 @@ public:
 	virtual bool operator==(Point& other) = 0;
 	void print(){}
 	
-
 	Ref Ref;
 	int ClId;
 	int Id;
 
 	bool meetsLambdaCondition;
 	bool isCorePoint;
-
-	vector<double> subspacePreferenceVector;
 };
 
 #endif 
