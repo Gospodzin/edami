@@ -13,13 +13,13 @@ private:
 	};
 public:
 	Point() : ClId(UNCLASSIFIED), meetsLambdaCondition(false), isCorePoint(false) {}
-	Point(vector<double> coordinates) : ClId(UNCLASSIFIED), meetsLambdaCondition(false), isCorePoint(false), coordinates(coordinates) {}
 
-	virtual int size() const;
-	virtual void normalize();
-	virtual double dotProd(Point& point);
-	virtual double& operator[](int n) const;
-	virtual bool operator==(const Point& other) const;
+	virtual int size() const = 0;
+	virtual void normalize() = 0;
+	virtual double dotProd(Point& point) = 0;
+	virtual double& operator[](int n) = 0;
+	virtual bool operator==(Point& other) = 0;
+	void print(){}
 	
 
 	Ref Ref;

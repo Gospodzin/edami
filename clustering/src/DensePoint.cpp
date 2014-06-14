@@ -20,7 +20,7 @@ int DensePoint::size() const
 	return Coordinates.size();
 }
 
-Point DensePoint::getProjectionOntoNthAttr(int n)
+Point& DensePoint::getProjectionOntoNthAttr(int n)
 {
 	vector<double> coordsOfProjection(size(), 0.0);
 	coordsOfProjection[n] = Coordinates[n];
@@ -32,7 +32,7 @@ double& DensePoint::operator[](int n)
 	return Coordinates[n];
 }
 
-bool DensePoint::operator==(const Point& other){
+bool DensePoint::operator==(Point& other){
 	if (size() != other.size())
 		return false;
 	for (unsigned i = 0; i < size(); ++i) {
@@ -48,7 +48,7 @@ void DensePoint::normalize()
 	transform(Coordinates.begin(), Coordinates.end(), Coordinates.begin(), [length](double val) -> double {return val / length; });
 }
 
-double DensePoint::dotProd(DensePoint& point)
+double DensePoint::dotProd(Point& point)
 {
-	return inner_product(Coordinates.begin(), Coordinates.end(), point.Coordinates.begin(), (double)0);
+	return inner_product(Coordinates.begin(), Coordinates.end(), ((DensePoint&)point).Coordinates.begin(), (double)0);
 }
