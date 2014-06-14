@@ -7,14 +7,18 @@ class DensePoint : public Point
 {
 public:
 	DensePoint();
+	DensePoint(vector<double> coordinates) : Coordinates(coordinates) {}
 	~DensePoint();
 	void print();
-	void set(int n, double f){ coordinates[n] = f; }
-	int getAttrsNumber();
-	double getNthAttr(int n);
+	int size() const;
 	Point getProjectionOntoNthAttr(int n);
+	void normalize();
+	double dotProd(DensePoint& point);
 
+	double& operator[](int n);
 	bool operator==(const Point& other);
+
+	vector<double> Coordinates;
 };
 
 #endif

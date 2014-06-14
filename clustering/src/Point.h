@@ -5,22 +5,25 @@
 
 class Point
 {
+private:
+	union Ref
+	{
+		double Dist;
+		double Length;
+	};
 public:
 	Point() : ClId(UNCLASSIFIED) {}
-	Point(vector<double> coordinates) : ClId(UNCLASSIFIED), coordinates(coordinates) {}
 
-	void print();
-	void set(int n, double f){ coordinates[n] = f; }
-	int getAttrsNumber();
-	double& operator[](int n);
-	Point getProjectionOntoNthAttr(int n);
+	virtual int size() const;
+	virtual void normalize();
+	virtual double dotProd(Point& point);
+	virtual double& operator[](int n) const;
+	virtual bool operator==(const Point& other) const;
+	
 
-	bool operator==(const Point& other);
-
+	Ref Ref;
 	int ClId;
-	double RefDist;
 	int Id;
-	vector<double> coordinates;
 };
 
 #endif 

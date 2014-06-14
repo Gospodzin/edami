@@ -3,7 +3,7 @@
 void DensePoint::print()
 {
 	string toPrint = "(";
-	for (vector<double>::iterator it = coordinates.begin(); it != coordinates.end(); ++it)
+	for (vector<double>::iterator it = Coordinates.begin(); it != Coordinates.end(); ++it)
 	{
 		ostringstream strs;
 		strs << (*it);
@@ -15,29 +15,40 @@ void DensePoint::print()
 	cout << toPrint << endl;
 }
 
-int DensePoint::getAttrsNumber()
+int DensePoint::size() const
 {
-	return coordinates.size();
-}
-
-double DensePoint::getNthAttr(int n)
-{
-	return coordinates[n];
+	return Coordinates.size();
 }
 
 Point DensePoint::getProjectionOntoNthAttr(int n)
 {
-	vector<double> coordsOfProjection(getAttrsNumber(), 0.0);
-	coordsOfProjection[n] = coordinates[n];
-	return Point(coordsOfProjection);
+	vector<double> coordsOfProjection(size(), 0.0);
+	coordsOfProjection[n] = Coordinates[n];
+	return DensePoint(coordsOfProjection);
+}
+
+double& DensePoint::operator[](int n)
+{
+	return Coordinates[n];
 }
 
 bool DensePoint::operator==(const Point& other){
-	if (coordinates.size() != other.coordinates.size())
+	if (size() != other.size())
 		return false;
-	for (unsigned i = 0; i < coordinates.size(); ++i) {
-		if (coordinates[i] != other.coordinates[i])
+	for (unsigned i = 0; i < size(); ++i) {
+		if (Coordinates[i] != other[i])
 			return false;
 	}
 	return true;
+}
+
+void DensePoint::normalize()
+{
+	double length = sqrt(inner_product(Coordinates.begin(), Coordinates.end(), Coordinates.begin(), double(0)));
+	transform(Coordinates.begin(), Coordinates.end(), Coordinates.begin(), [length](double val) -> double {return val / length; });
+}
+
+double DensePoint::dotProd(DensePoint& point)
+{
+	return inner_product(Coordinates.begin(), Coordinates.end(), point.Coordinates.begin(), (double)0);
 }
