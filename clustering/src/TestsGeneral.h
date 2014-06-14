@@ -3,6 +3,7 @@
 #include "SparsePoint.h"
 #include "Measures.h"
 #include "EpsNeighborhoodCalculation.h"
+#include "loader.h"
 
 BOOST_AUTO_TEST_SUITE (Distances)
 
@@ -31,5 +32,28 @@ BOOST_AUTO_TEST_SUITE (Distances)
 //		BOOST_CHECK(epsNeighborhood.getNeighbors()[i] == otherPoints[i]);
 //	}
 //}
+BOOST_AUTO_TEST_CASE(loaderTest)
+{
+		vector<DensePoint> points = loader::loadDataDense("datasets/dense/dense_d2_r62556_sequoia.txt");
+
+//		cout << points.size() << endl;
+//
+//		for (int i = 0; i < points.size(); ++i) {
+//			points[i].print();
+//		}
+//
+//		cout << points.size() << endl;
+
+		vector<SparsePoint> points1 = loader::loadDataSparse("datasets/sparse/sports.mat");
+
+		for (int i = 0; i < points1.size(); ++i) {
+			for (int j = 0; j < points1[i].Coordinates.size(); ++j) {
+				cout << "id: " << points1[i].Coordinates[j].Id << endl;
+				cout << "value: " << points1[i].Coordinates[j].Value << endl;
+			}
+		}
+
+		cout << points.size() << endl;
+}
 
 BOOST_AUTO_TEST_SUITE_END()

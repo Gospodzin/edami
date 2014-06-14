@@ -9,11 +9,11 @@ struct SparsePair
 	double Value;
 };
 
-class SparsePoint : public Point
+class SparsePoint
 {
 public:
-	SparsePoint();
-	~SparsePoint();
+	SparsePoint(){}
+	~SparsePoint(){}
 
 	vector<SparsePair> Coordinates;
 };
