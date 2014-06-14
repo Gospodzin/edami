@@ -12,6 +12,7 @@ private:
 	void sortByRefDist();
 	void calculateRefDists(T refP, double(*measure)(T&, T&));
 	void setIds();
+	T getRefP();
 };
 
 template<class T>
@@ -65,4 +66,11 @@ void TISetOfPoints<T>::setIds()
 	for (unsigned i = 0; i < dataSet.size(); i++)
 		dataSet[i].Id = i;
 }
+
+template<class T>
+T TISetOfPoints<T>::getRefP()
+{
+
+}
+
 #endif

@@ -18,7 +18,6 @@ public:
 	double& operator[](int n);
 	bool operator==(Point& other);
 
-
 	vector<double> Coordinates;
 };
 
