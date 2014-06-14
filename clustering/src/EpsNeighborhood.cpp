@@ -3,15 +3,15 @@
 
 double EpsNeighborhood::getVarianceAlongAttr(int n) {
 	double sum = 0.0;
-	for (vector<Point>::iterator oneOfPoints = points.begin(); oneOfPoints != points.end(); ++oneOfPoints) {
-		double dist = distanceMeasure(thePoint, oneOfPoints->getProjectionOntoNthAttr(n));
+	for (vector<Point*>::iterator oneOfPoints = points.begin(); oneOfPoints != points.end(); ++oneOfPoints) {
+		double dist = thePoint->coordinates[n] - (*oneOfPoints)->coordinates[n];
 		sum = sum + (dist * dist);
 	}
 	return sum / getCount();
 }
 
 void EpsNeighborhood::computeSubspacePreferenceParameters(double delta, double kappa){
-	for (int i = 0; i < thePoint.getAttrsNumber(); ++i) {
+	for (int i = 0; i < thePoint->getAttrsNumber(); ++i) {
 		double variance = getVarianceAlongAttr(i);
 		if(variance <= delta){
 			subspacePreferenceVector.push_back(kappa);
@@ -30,10 +30,10 @@ int EpsNeighborhood::getPreferenceDimensionality(){
 	return subspacePreferenceDimensionality;
 }
 
-double EpsNeighborhood::getPreferenceWeightedDistanceTo(Point otherPoint){
+double EpsNeighborhood::getPreferenceWeightedDistanceTo(Point * otherPoint){
 	double sum = 0.0;
-	for (int i = 0; i < thePoint.getAttrsNumber(); ++i) {
-		double diff = thePoint[i] - otherPoint[i];
+	for (int i = 0; i < thePoint->getAttrsNumber(); ++i) {
+		double diff = thePoint->getNthAttr(i) - otherPoint->getNthAttr(i);
 		sum += subspacePreferenceVector[i] * diff * diff;
 	}
 	return sqrt(sum);

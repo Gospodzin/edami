@@ -7,20 +7,20 @@
 class EpsNeighborhood : public Neighborhood
 {
 private:
+	double (*distanceMeasure)(Point*,Point*);
 	vector<double> subspacePreferenceVector;
-	double (*distanceMeasure)(Point,Point);
 	int subspacePreferenceDimensionality;
 
 public:
 	EpsNeighborhood(){}
-	EpsNeighborhood(Point thePoint, vector<Point> points, double (*distanceMeasure)(Point,Point))
+	EpsNeighborhood(Point * thePoint, vector<Point*> points, double (*distanceMeasure)(Point*,Point*))
 		: Neighborhood(thePoint, points), distanceMeasure(distanceMeasure), subspacePreferenceDimensionality(0) {}
 
 	double getVarianceAlongAttr(int n);
 	void computeSubspacePreferenceParameters(double delta, double kappa);
 	vector<double> getSubspacePreferenceVector();
 	int getPreferenceDimensionality();
-	double getPreferenceWeightedDistanceTo(Point point);
+	double getPreferenceWeightedDistanceTo(Point * point);
 };
 
 #endif 

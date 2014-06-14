@@ -6,18 +6,18 @@ Neighborhood::Neighborhood()
 
 void Neighborhood::print() {
 	cout << "The point" << endl;
-	thePoint.print();
+	thePoint->print();
 	cout << "neighbors" << endl;
-	for (vector<Point>::iterator oneOfPoints = points.begin(); oneOfPoints != points.end(); ++oneOfPoints) {
-		oneOfPoints->print();
+	for (vector<Point*>::iterator oneOfPoints = points.begin(); oneOfPoints != points.end(); ++oneOfPoints) {
+		(*oneOfPoints)->print();
 	}
 }
 
-Point Neighborhood::getThePoint(){
+Point * Neighborhood::getThePoint(){
 	return thePoint;
 }
 
-vector<Point> Neighborhood::getNeighbors(){
+vector<Point*> Neighborhood::getNeighbors(){
 	return points;
 }
 

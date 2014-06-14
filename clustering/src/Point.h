@@ -6,8 +6,8 @@
 class Point
 {
 public:
-	Point() : ClId(UNCLASSIFIED) {}
-	Point(vector<double> coordinates) : ClId(UNCLASSIFIED), coordinates(coordinates) {}
+	Point() : ClId(UNCLASSIFIED), meetsLambdaCondition(false), isCorePoint(false) {}
+	Point(vector<double> coordinates) : ClId(UNCLASSIFIED), meetsLambdaCondition(false), isCorePoint(false), coordinates(coordinates) {}
 
 	void print();
 	void set(int n, double f){ coordinates[n] = f; }
@@ -21,6 +21,11 @@ public:
 	double RefDist;
 	int Id;
 	vector<double> coordinates;
+
+	bool meetsLambdaCondition;
+	bool isCorePoint;
+
+	vector<double> subspacePreferenceVector;
 };
 
 #endif 

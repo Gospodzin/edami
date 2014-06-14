@@ -8,20 +8,20 @@
 class Neighborhood
 {
 protected:
-	Point thePoint;
-	vector<Point> points;
+	Point * thePoint;
+	vector<Point*> points;
 
 public:
 
 	Neighborhood();
-	Neighborhood(Point thePoint, vector<Point> points): thePoint(thePoint), points(points) {}
+	Neighborhood(Point * thePoint, vector<Point*> points): thePoint(thePoint), points(points) {}
 
 	void print();
 
 	int getCount();
 
-	Point getThePoint();
-	vector<Point> getNeighbors();
+	Point * getThePoint();
+	vector<Point*> getNeighbors();
 };
 
 #endif 

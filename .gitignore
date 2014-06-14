@@ -196,3 +196,5 @@ local.properties
 
 # object files
 *.o
+
+clustering/main
