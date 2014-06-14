@@ -3,11 +3,19 @@
 
 #include "Point.h"
 
+struct SparsePair
+{
+	int Id;
+	double Value;
+};
+
 class SparsePoint : public Point
 {
 public:
 	SparsePoint();
 	~SparsePoint();
+
+	vector<SparsePair> Coordinates;
 };
 
 #endif
