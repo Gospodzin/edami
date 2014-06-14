@@ -12,7 +12,8 @@ private:
 		double Length;
 	};
 public:
-	Point() : ClId(UNCLASSIFIED) {}
+	Point() : ClId(UNCLASSIFIED), meetsLambdaCondition(false), isCorePoint(false) {}
+	Point(vector<double> coordinates) : ClId(UNCLASSIFIED), meetsLambdaCondition(false), isCorePoint(false), coordinates(coordinates) {}
 
 	virtual int size() const;
 	virtual void normalize();
@@ -24,6 +25,11 @@ public:
 	Ref Ref;
 	int ClId;
 	int Id;
+
+	bool meetsLambdaCondition;
+	bool isCorePoint;
+
+	vector<double> subspacePreferenceVector;
 };
 
 #endif 
