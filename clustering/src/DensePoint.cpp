@@ -20,12 +20,12 @@ int DensePoint::size() const
 	return Coordinates.size();
 }
 
-Point& DensePoint::getProjectionOntoNthAttr(int n)
-{
-	vector<double> coordsOfProjection(size(), 0.0);
-	coordsOfProjection[n] = Coordinates[n];
-	return DensePoint(coordsOfProjection);
-}
+//Point& DensePoint::getProjectionOntoNthAttr(int n)
+//{
+//	vector<double> coordsOfProjection(size(), 0.0);
+//	coordsOfProjection[n] = Coordinates[n];
+//	return DensePoint(coordsOfProjection);
+//}
 
 double& DensePoint::operator[](int n)
 {
