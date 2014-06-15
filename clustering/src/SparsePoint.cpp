@@ -10,9 +10,7 @@ void SparsePoint::print()
 
 int SparsePoint::size() const
 {
-	Coordinates.size();
-
-	return -1;
+	return 	Coordinates.size();
 }
 
 //Point& DensePoint::getProjectionOntoNthAttr(int n)
@@ -31,28 +29,58 @@ double& SparsePoint::operator[](int n)
 }
 
 bool SparsePoint::operator==(Point& other){
-	//if (size() != other.size())
-	//	return false;
-	//for (unsigned i = 0; i < size(); ++i) {
-	//	if (Coordinates[i] != other[i])
-	//		return false;
-	//}
+	SparsePoint& sparseOther = (SparsePoint&)other;
+
+	if (Coordinates.size() != sparseOther.Coordinates.size())
+		return false;
+
+	for (int i = 0; i < Coordinates.size(); i++)
+	{
+		if (Coordinates[i].Id != sparseOther.Coordinates[i].Id || Coordinates[i].Value != sparseOther.Coordinates[i].Value)
+		{
+			return false;
+		}
+	}
+
 	return true;
 }
 
 void SparsePoint::normalize()
 {
-	//double length = sqrt(inner_product(Coordinates.begin(), Coordinates.end(), Coordinates.begin(), double(0)));
-	//transform(Coordinates.begin(), Coordinates.end(), Coordinates.begin(), [length](double val) -> double {return val / length; });
+	double length = sqrt(dotProd(*this));
+	for_each(Coordinates.begin(), Coordinates.end(), [length](SparsePair& pair){pair.Value /= length; });
 }
 
 void SparsePoint::calcSquareLength()
 {
-	//Ref.SquareLen = dotProd(*this);
+	this->Ref.SquareLen = dotProd(*this);
 }
 
 double SparsePoint::dotProd(Point& point)
 {
-	SparsePoint& sparsePoint = (SparsePoint&)point;
-	return 0;//inner_product(Coordinates.begin(), Coordinates.end(), ((DensePoint&)point).Coordinates.begin(), (double)0);
+	SparsePoint& a = (SparsePoint&)*this;
+	SparsePoint& b = (SparsePoint&)point;
+	
+	double dotProd = 0;
+
+	int offsetA = 0;
+	int offsetB = 0;
+
+	while (offsetA < a.Coordinates.size() && offsetB < b.Coordinates.size())
+	{
+		if (a.Coordinates[offsetA].Id > b.Coordinates[offsetB].Id)
+		{
+			++offsetB;
+		}
+		else if (a.Coordinates[offsetA].Id < b.Coordinates[offsetB].Id)
+		{
+			++offsetA;
+		}
+		else 
+		{
+			dotProd += a.Coordinates[offsetA].Value *  b.Coordinates[offsetB].Value;
+		}
+	}
+
+	return dotProd;
 }
