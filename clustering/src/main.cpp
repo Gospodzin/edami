@@ -1,5 +1,6 @@
 #include <iostream>
 #include <fstream>
+#include <ctime>
 #include "utils.h"
 #include "Clustering.h"
 #include "loader.h"
@@ -31,16 +32,25 @@ int main()
 	vector<DensePoint> data = loader::loadDataDense(filePath);
 
 	cout << "Computing..." << endl;
+	clock_t start = clock();
 	Clustering<DensePoint>::dbscan(data, eps, minPt, (DbScanType)dbScanTypeId, (MeasureType)measureTypeId);
-
+	clock_t ends = clock();
+	cout << "Run Time: " << ends - start << endl;
 	cout << "Writing out results..." << endl;
-	ofstream myfile;
-	myfile.open("result.txt", ios::trunc);
+	ofstream resultFile;
+	resultFile.open("result.txt", ios::trunc);
 	for (int i = 0; i < data.size(); i++)
 	{
-		myfile << to_string(data[i].ClId) + "\n";
+		resultFile << to_string(data[i].ClId) + "\n";
 	}
-	myfile.close();
+	resultFile.close();
+	ofstream runtime;
+	resultFile.open("runtime.txt", ios::trunc);
+	for (int i = 0; i < data.size(); i++)
+	{
+		runtime << to_string(ends-start);
+	}
+	runtime.close();
 	cout << "Completed" << endl;
 	system("pause");
 }
