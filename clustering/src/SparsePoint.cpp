@@ -2,23 +2,15 @@
 
 void SparsePoint::print()
 {
-	//string toPrint = "(";
-	//for (vector<double>::iterator it = Coordinates.begin(); it != Coordinates.end(); ++it)
-	//{
-	//	ostringstream strs;
-	//	strs << (*it);
-	//	string str = strs.str();
-	//	toPrint += str;
-	//	toPrint += ",";
-	//}
-	//toPrint[toPrint.size() - 1] = ')';
-	//toPrint = toPrint + "\tClId=" + to_string(ClId);
-	//cout << toPrint << endl;
+	for (int i = 0; i < Coordinates.size(); ++i) {
+		cout << "id: " << Coordinates[i].Id << endl;
+		cout << "value: " << Coordinates[i].Value << endl;
+	}
 }
 
 int SparsePoint::size() const
 {
-	return 0; //Coordinates.size();
+	Coordinates.size();
 }
 
 //Point& DensePoint::getProjectionOntoNthAttr(int n)
@@ -30,7 +22,10 @@ int SparsePoint::size() const
 
 double& SparsePoint::operator[](int n)
 {
-	//return Coordinates[n];
+	for (int i = 0; i < Coordinates.size(); ++i) {
+		if(Coordinates[i].Id == n)
+			return Coordinates[i].Value;
+	}
 }
 
 bool SparsePoint::operator==(Point& other){

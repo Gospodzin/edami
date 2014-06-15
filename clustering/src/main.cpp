@@ -15,6 +15,9 @@ int main()
 	int measureTypeId;
 	int minPt;
 	double eps;
+
+
+
 	cout << "Enter file path: ";
 	cin >> filePath;
 	cout << "0. Basic\n1. Half\n2. TI\n3. Lengths" << endl;
