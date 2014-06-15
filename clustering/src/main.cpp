@@ -8,6 +8,28 @@
 using namespace std;
 
 
+void statistics(vector<DensePoint>& data)
+{
+	vector<int> stat;
+	for (int i = 0; i < data.size(); i++)
+	{
+		if (data[i].ClId + 1 > stat.capacity())
+			stat.resize(data[i].ClId + 1);
+		++stat[data[i].ClId];
+	}
+
+	ofstream resultFile;
+	resultFile.open("stats.txt", ios::trunc);
+	resultFile << "NoOfClusters:" << stat.size() - 1 << endl;
+	resultFile << "Noise:" << stat[0] << endl;
+	for (int i = 1; i < stat.size(); i++)
+	{
+		resultFile << i << ":" << stat[i] <<endl;
+	}
+	resultFile.close();
+	
+}
+
 int main()
 {
 	string filePath;
@@ -52,11 +74,10 @@ int main()
 	resultFile.close();
 	ofstream runtime;
 	resultFile.open("runtime.txt", ios::trunc);
-	for (int i = 0; i < data.size(); i++)
-	{
-		runtime << to_string((double)(ends - start) / CLOCKS_PER_SEC);
-	}
+	runtime << to_string((double)(ends - start) / CLOCKS_PER_SEC);
 	runtime.close();
+	statistics(data);
 	cout << "Completed" << endl;
 	system("pause");
 }
+
