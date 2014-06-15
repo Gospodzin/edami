@@ -140,8 +140,9 @@ void Clustering<T>::dbscan(vector<T>& dataSet, double eps, int minPts, DbScanTyp
 	// write clusters ids to the origin data
 	for (int i = 0; i < setOfPoints.size(); i++)
 	{
-		dataSet[i].ClId = setOfPoints[i].ClId;
+		dataSet[setOfPoints[i].Id].ClId = setOfPoints[i].ClId;
 	}
+
 }
 
 template<class T>

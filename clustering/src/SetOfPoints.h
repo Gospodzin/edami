@@ -18,7 +18,7 @@ protected:
 
 template<class T>
 SetOfPoints<T>::SetOfPoints(vector<T>& dataSet)
-{ 
+{
 	this->dataSet = dataSet; 
 	setIds();
 }
@@ -27,7 +27,9 @@ template<class T>
 void SetOfPoints<T>::setIds()
 {
 	for (unsigned i = 0; i < dataSet.size(); i++)
+	{
 		dataSet[i].Id = i;
+	}
 }
 
 template<class T>

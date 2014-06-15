@@ -21,7 +21,6 @@ HSetOfPoints<T>::HSetOfPoints(vector<T>& dataSet) : SetOfPoints<T>(dataSet)
 	flags.resize(dataSet.size());
 	for (unsigned i = 0; i < dataSet.size(); ++i)
 	{
-		printf("%d\n", i);
 		flags[i].resize(dataSet.size() - i);
 		for (vector<int>::iterator it = flags[i].begin(); it != flags[i].end(); ++it) {
 			*it = NOT_DECIDED;

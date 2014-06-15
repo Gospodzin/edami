@@ -11,6 +11,8 @@ void SparsePoint::print()
 int SparsePoint::size() const
 {
 	Coordinates.size();
+
+	return -1;
 }
 
 //Point& DensePoint::getProjectionOntoNthAttr(int n)
