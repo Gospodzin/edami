@@ -12,6 +12,7 @@ void DensePoint::print()
 		toPrint += ",";
 	}
 	toPrint[toPrint.size() - 1] = ')';
+	toPrint = toPrint + "\tClId=" + to_string(ClId);
 	cout << toPrint << endl;
 }
 
@@ -46,6 +47,11 @@ void DensePoint::normalize()
 {
 	double length = sqrt(inner_product(Coordinates.begin(), Coordinates.end(), Coordinates.begin(), double(0)));
 	transform(Coordinates.begin(), Coordinates.end(), Coordinates.begin(), [length](double val) -> double {return val / length; });
+}
+
+void DensePoint::calcSquareLength()
+{
+	Ref.SquareLen = dotProd(*this);
 }
 
 double DensePoint::dotProd(Point& point)

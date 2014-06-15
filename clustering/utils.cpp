@@ -55,3 +55,8 @@ void utils::printVector(vector<double> vec) {
 	cout << ")";
 	cout << endl;
 }
+
+void utils::deleteSeed(vector<int>& seeds, int& seed)
+{
+	seeds.erase(std::find(seeds.begin(), seeds.end(), seed));
+}

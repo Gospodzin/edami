@@ -13,6 +13,7 @@ public:
 
 	int size() const;
 	void normalize();
+	void calcSquareLength();
 	double dotProd(Point& point);
 	
 	double& operator[](int n);

@@ -4,26 +4,21 @@
 #include "commons.h"
 #include "Point.h"
 #include "DensePoint.h"
+#include "SetOfPoints.h"
 
 namespace utils
 {
 	vector<DensePoint> loadData(string fileName);
 	vector<DensePoint> loadDataMichal(string fileName);
-	template<class T> void changeClIds(vector<T*> seeds, int clId);
-	template<class T> void deleteSeed(vector<T*>& seeds, T* seed);
+	template<class T> void changeClIds(vector<int> seeds, SetOfPoints<T>& setOfPoints, int clId);
+	void deleteSeed(vector<int>& seeds, int& seed);
 	void printVector(vector<double> vec);
 }
 
 template<class T>
-void utils::deleteSeed(vector<T*>& seeds, T* seed)
+void utils::changeClIds(vector<int> seeds, SetOfPoints<T>& setOfPoints, int clId)
 {
-	seeds.erase(std::find(seeds.begin(), seeds.end(), seed));
-}
-
-template<class T>
-void utils::changeClIds(vector<T*> seeds, int clId)
-{
-	for (typename vector<T*>::iterator it = seeds.begin(); it != seeds.end(); ++it)
-		(*it)->ClId = clId;
+	for (typename vector<int>::iterator it = seeds.begin(); it != seeds.end(); ++it)
+		setOfPoints[*it].ClId = clId;
 }
 #endif 

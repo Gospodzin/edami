@@ -8,18 +8,17 @@ template<class T>
 class HSetOfPoints : public SetOfPoints<T>
 {
 public:
-	HSetOfPoints(vector<T> dataSet);
+	HSetOfPoints(vector<T>& dataSet);
 	~HSetOfPoints();
-	vector<T*> regionQuery(T& point, double eps, double(*measure)(T&, T&));
+	vector<int> regionQuery(int& point, double eps, double(*measure)(T&, T&));
 	void setIds();
 private:
 	vector<vector<int>> flags;
 };
 
 template<class T>
-HSetOfPoints<T>::HSetOfPoints(vector<T> dataSet)
+HSetOfPoints<T>::HSetOfPoints(vector<T>& dataSet) : SetOfPoints(dataSet)
 {
-	this->dataSet = dataSet;
 	flags.resize(dataSet.size());
 	for (unsigned i = 0; i < dataSet.size(); ++i)
 	{
@@ -37,29 +36,30 @@ HSetOfPoints<T>::~HSetOfPoints()
 }
 
 template<class T>
-vector<T*> HSetOfPoints<T>::regionQuery(T& point, double eps, double(*measure)(T&, T&))
+vector<int> HSetOfPoints<T>::regionQuery(int& pointId, double eps, double(*measure)(T&, T&))
 {
-	vector<T*> neighbours;
-	for (vector<T>::iterator it = dataSet.begin(); it != dataSet.end(); ++it) {
+	T& point = dataSet[pointId];
+	vector<int> neighbours;
+	for (int i = 0; i < dataSet.size();i++) {
 		int left;
 		int right;
-		if (point.Id <= it->Id)
+		if (point.Id <= dataSet[i].Id)
 		{
 			left = point.Id;
-			right = it->Id - point.Id;
+			right = dataSet[i].Id - point.Id;
 		}
 		else
 		{
-			left = it->Id;
-			right = point.Id - it->Id;
+			left = dataSet[i].Id;
+			right = point.Id - dataSet[i].Id;
 		}
 
 		if (flags[left][right] == NOT_DECIDED)
 		{
-			if (measure(point, *it) <= eps)
+			if (measure(point, dataSet[i]) <= eps)
 			{
 				flags[left][right] = NEIGHBOUR;
-				neighbours.push_back(&*it);
+				neighbours.push_back(i);
 			}
 			else
 			{
@@ -68,7 +68,7 @@ vector<T*> HSetOfPoints<T>::regionQuery(T& point, double eps, double(*measure)(T
 		}
 		else if (flags[left][right] == NEIGHBOUR)
 		{
-			neighbours.push_back(&*it);
+			neighbours.push_back(i);
 		}
 	}
 	return neighbours;

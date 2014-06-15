@@ -8,12 +8,11 @@ using namespace std;
 void main()
 {
 	vector<DensePoint> data = utils::loadData("sports.mat");
-	TISetOfPoints<DensePoint> setOfPoints(data, data[6], measures::euclideanDistance);
-	Clustering<DensePoint>::dbscan(setOfPoints, 1.1, 3, measures::euclideanDistance);
+	Clustering<DensePoint>::dbscan(data, 1.1, 3, DbScanType::TanimotoLengths, MeasureType::EuclideanDist);
 
-	for (int i = 0; i < setOfPoints.size(); i++)
+	for (int i = 0; i < data.size(); i++)
 	{
-		cout << setOfPoints[i].ClId<<endl;
+		data[i].print();
 	}
 	system("pause");
 }

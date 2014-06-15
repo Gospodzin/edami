@@ -9,13 +9,14 @@ private:
 	union Ref
 	{
 		double Dist;
-		double Length;
+		double SquareLen;
 	};
 public:
 	Point() : ClId(UNCLASSIFIED), meetsLambdaCondition(false), isCorePoint(false) {}
 
 	virtual int size() const = 0;
 	virtual void normalize() = 0;
+	virtual void calcSquareLength() = 0;
 	virtual double dotProd(Point& point) = 0;
 	virtual double& operator[](int n) = 0;
 	virtual bool operator==(Point& other) = 0;

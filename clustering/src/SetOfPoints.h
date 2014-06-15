@@ -6,13 +6,29 @@ template<class T>
 class SetOfPoints
 {
 public:
+	SetOfPoints(vector<T>& dataSet);
 	int size();
 	T& operator[](int n);
 	void normalize();
-	virtual vector<T*> regionQuery(T& point, double eps, double(*measure)(T&, T&)) = 0;
+	void setIds();
+	virtual vector<int> regionQuery(int& point, double eps, double(*measure)(T&, T&)) = 0;
 protected:
 	vector<T> dataSet;
 };
+
+template<class T>
+SetOfPoints<T>::SetOfPoints(vector<T>& dataSet)
+{ 
+	this->dataSet = dataSet; 
+	setIds();
+};
+
+template<class T>
+void SetOfPoints<T>::setIds()
+{
+	for (unsigned i = 0; i < dataSet.size(); i++)
+		dataSet[i].Id = i;
+}
 
 template<class T>
 int SetOfPoints<T>::size()

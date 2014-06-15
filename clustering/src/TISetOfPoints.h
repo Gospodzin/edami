@@ -6,40 +6,42 @@ template<class T>
 class TISetOfPoints : public SetOfPoints<T>
 {
 public:
-	TISetOfPoints(vector<T> dataSet, T refP, double(*measure)(T&, T&));
-	vector<T*> regionQuery(T& point, double eps, double(*measure)(T&, T&));
+	TISetOfPoints(vector<T>& dataSet);
+	vector<int> regionQuery(int& point, double eps, double(*measure)(T&, T&));
+	void prepare(double(*measure)(T&, T&));
 private:
 	void sortByRefDist();
 	void calculateRefDists(T refP, double(*measure)(T&, T&));
-	void setIds();
 	T getRefP();
 };
 
 template<class T>
-TISetOfPoints<T>::TISetOfPoints(vector<T> dataSet, T refP, double(*measure)(T&, T&))
+TISetOfPoints<T>::TISetOfPoints(vector<T>& dataSet) : SetOfPoints(dataSet){}
+
+template<class T>
+void TISetOfPoints<T>::prepare(double(*measure)(T&, T&))
 {
-	this->dataSet = dataSet;
-	calculateRefDists(refP, measure);
+	calculateRefDists(getRefP(), measure);
 	sortByRefDist();
 	setIds();
-
 }
 
 template<class T>
-vector<T*> TISetOfPoints<T>::regionQuery(T& point, double eps, double(*measure)(T&, T&))
+vector<int> TISetOfPoints<T>::regionQuery(int& pointId, double eps, double(*measure)(T&, T&))
 {
-	vector<T*> neighbours;
+	T& point = dataSet[pointId];
+	vector<int> neighbours;
 	//search upwards
-	for (int i = point.Id; i >= 0 && abs(point.Ref.Dist - dataSet[i].Ref.Dist) <= eps; i--)
+	for (int i = pointId; i >= 0 && abs(point.Ref.Dist - dataSet[i].Ref.Dist) <= eps; i--)
 	{
 		if (measure(point, dataSet[i]) <= eps)
-			neighbours.push_back(&dataSet[i]);
+			neighbours.push_back(i);
 	}
 	//search downwards
-	for (unsigned i = point.Id + 1; i < dataSet.size() && abs(point.Ref.Dist - dataSet[i].Ref.Dist) <= eps; i++)
+	for (unsigned i = pointId + 1; i < dataSet.size() && abs(point.Ref.Dist - dataSet[i].Ref.Dist) <= eps; i++)
 	{
 		if (measure(point, dataSet[i]) <= eps)
-			neighbours.push_back(&dataSet[i]);
+			neighbours.push_back(i);
 	}
 
 	return neighbours;
@@ -61,16 +63,21 @@ void TISetOfPoints<T>::calculateRefDists(T refP, double(*measure)(T&, T&))
 }
 
 template<class T>
-void TISetOfPoints<T>::setIds()
-{
-	for (unsigned i = 0; i < dataSet.size(); i++)
-		dataSet[i].Id = i;
-}
-
-template<class T>
 T TISetOfPoints<T>::getRefP()
 {
+	vector<double> max(dataSet[0].size());
+	for (vector<T>::iterator it = dataSet.begin(); it != dataSet.end(); ++it)
+	{
+		for (int i = 0; i < dataSet[0].size(); i++)
+		{
+			if (max[i] < abs((*it)[i]))
+			{
+				max[i] = (*it)[i];
+			}
+		}
+	}
 
+	return max;
 }
 
 #endif

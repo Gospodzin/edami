@@ -1,12 +1,12 @@
-#ifndef _L_SET_OF_POINTS_H
-#define _L_SET_OF_POINTS_H
+#ifndef _TL_SET_OF_POINTS_H
+#define _TL_SET_OF_POINTS_H
 #include "SetOfPoints.h"
 
 template<class T>
-class LSetOfPoints : public SetOfPoints<T>
+class TLSetOfPoints : public SetOfPoints<T>
 {
 public:
-	LSetOfPoints(vector<T>& dataSet);
+	TLSetOfPoints(vector<T>& dataSet);
 	vector<int> regionQuery(int& point, double eps, double(*measure)(T&, T&));
 	void prepare(T refP, double(*measure)(T&, T&));
 private:
@@ -16,17 +16,17 @@ private:
 };
 
 template<class T>
-LSetOfPoints<T>::LSetOfPoints(vector<T>& dataSet) : SetOfPoints(dataSet)
+TLSetOfPoints<T>::TLSetOfPoints(vector<T>& dataSet) : SetOfPoints(dataSet)
 {
 	calculateSquareLengths();
 	sortByLength();
 }
 
 template<class T>
-vector<int> LSetOfPoints<T>::regionQuery(int& pointId, double eps, double(*measure)(T&, T&))
+vector<int> TLSetOfPoints<T>::regionQuery(int& pointId, double eps, double(*measure)(T&, T&))
 {
-	double lowerB = eps*eps*dataSet[pointId].Ref.SquareLen;
-	double upperB = dataSet[pointId].Ref.SquareLen / (eps*eps);
+	double lowerB = eps*dataSet[pointId].Ref.SquareLen;
+	double upperB = dataSet[pointId].Ref.SquareLen / eps;
 	Point& point = dataSet[pointId];
 	vector<int> neighbours;
 	//search upwards
@@ -46,14 +46,14 @@ vector<int> LSetOfPoints<T>::regionQuery(int& pointId, double eps, double(*measu
 }
 
 template<class T>
-void LSetOfPoints<T>::calculateSquareLengths()
+void TLSetOfPoints<T>::calculateSquareLengths()
 {
 	for (vector<T>::iterator it = dataSet.begin(); it != dataSet.end(); ++it)
 		it->calcSquareLength();
 }
 
 template<class T>
-void LSetOfPoints<T>::sortByLength()
+void TLSetOfPoints<T>::sortByLength()
 {
 	std::sort(dataSet.begin(), dataSet.end(), [](T a, T b) {
 		return a.Ref.Dist <  b.Ref.Dist;

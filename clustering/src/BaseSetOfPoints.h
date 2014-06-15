@@ -6,29 +6,20 @@ template<class T>
 class BaseSetOfPoints : public SetOfPoints<T>
 {
 public:
-	BaseSetOfPoints(vector<T> dataSet);
-	~BaseSetOfPoints();
-	vector<T*> regionQuery(T& point, double eps, double(*measure)(T&, T&));
+	BaseSetOfPoints(vector<T>& dataSet);
+	vector<int> regionQuery(int& point, double eps, double(*measure)(T&, T&));
 };
 
 template<class T>
-BaseSetOfPoints<T>::BaseSetOfPoints(vector<T> dataSet)
-{
-	this->dataSet = dataSet;
-}
+BaseSetOfPoints<T>::BaseSetOfPoints(vector<T>& dataSet) : SetOfPoints(dataSet){}
 
 template<class T>
-BaseSetOfPoints<T>::~BaseSetOfPoints()
+vector<int> BaseSetOfPoints<T>::regionQuery(int& pointId, double eps, double(*measure)(T&, T&))
 {
-}
-
-template<class T>
-vector<T*> BaseSetOfPoints<T>::regionQuery(T& point, double eps, double(*measure)(T&, T&))
-{
-	vector<T*> neighbours;
-	for (vector<T>::iterator it = dataSet.begin(); it != dataSet.end(); ++it) {
-		if (measure(point, *it) <= eps)
-			neighbours.push_back(&*it);
+	vector<int> neighbours;
+	for (int i = 0; i < dataSet.size();i++){
+		if (measure(dataSet[pointId], dataSet[i]) <= eps)
+			neighbours.push_back(i);
 	}
 	return neighbours;
 }
