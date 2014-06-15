@@ -11,6 +11,8 @@ void SparsePoint::print()
 int SparsePoint::size() const
 {
 	Coordinates.size();
+
+	return -1;
 }
 
 //Point& DensePoint::getProjectionOntoNthAttr(int n)
@@ -51,5 +53,6 @@ void SparsePoint::calcSquareLength()
 
 double SparsePoint::dotProd(Point& point)
 {
+	SparsePoint& sparsePoint = (SparsePoint&)point;
 	return 0;//inner_product(Coordinates.begin(), Coordinates.end(), ((DensePoint&)point).Coordinates.begin(), (double)0);
 }

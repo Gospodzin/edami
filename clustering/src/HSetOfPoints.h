@@ -10,7 +10,6 @@ class HSetOfPoints : public SetOfPoints<T>
 public:
 	HSetOfPoints(vector<T>& dataSet);
 	vector<int> regionQuery(int& point, double eps, double(*measure)(T&, T&));
-	void setIds();
 private:
 	vector<vector<int>> flags;
 };
@@ -21,7 +20,6 @@ HSetOfPoints<T>::HSetOfPoints(vector<T>& dataSet) : SetOfPoints<T>(dataSet)
 	flags.resize(dataSet.size());
 	for (unsigned i = 0; i < dataSet.size(); ++i)
 	{
-		printf("%d\n", i);
 		flags[i].resize(dataSet.size() - i);
 		for (vector<int>::iterator it = flags[i].begin(); it != flags[i].end(); ++it) {
 			*it = NOT_DECIDED;
@@ -37,15 +35,15 @@ vector<int> HSetOfPoints<T>::regionQuery(int& pointId, double eps, double(*measu
 	for (int i = 0; i < this->dataSet.size();i++) {
 		int left;
 		int right;
-		if (point.Id <= this->dataSet[i].Id)
+		if (pointId <= i)
 		{
-			left = point.Id;
-			right = this->dataSet[i].Id - point.Id;
+			left = pointId;
+			right = i - pointId;
 		}
 		else
 		{
-			left = this->dataSet[i].Id;
-			right = point.Id - this->dataSet[i].Id;
+			left = i;
+			right = pointId - i;
 		}
 
 		if (flags[left][right] == NOT_DECIDED)
@@ -66,13 +64,6 @@ vector<int> HSetOfPoints<T>::regionQuery(int& pointId, double eps, double(*measu
 		}
 	}
 	return neighbours;
-}
-
-template<class T>
-void HSetOfPoints<T>::setIds()
-{
-	for (unsigned i = 0; i < this->dataSet.size(); i++)
-		this->dataSet[i].Id = i;
 }
 
 #endif

@@ -31,7 +31,6 @@ void TISetOfPoints<T>::prepare(double(*measure)(T&, T&))
 	sortByRefDist();
 	ends = clock();
 	cout << "time: " << (double)(ends - start) / CLOCKS_PER_SEC << endl;
-	this->setIds();
 }
 
 template<class T>
