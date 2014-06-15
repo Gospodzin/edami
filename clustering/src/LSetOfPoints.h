@@ -30,13 +30,13 @@ vector<int> LSetOfPoints<T>::regionQuery(int& pointId, double eps, double(*measu
 	Point& point = this->dataSet[pointId];
 	vector<int> neighbours;
 	//search backward
-	for (int i = point.Id; i >= 0 && this->dataSet[i].Ref.SquareLen >= lowerB; i--)
+	for (int i = pointId; i >= 0 && this->dataSet[i].Ref.SquareLen >= lowerB; i--)
 	{
 		if (measure(this->dataSet[pointId], this->dataSet[i]) >= eps)
 			neighbours.push_back(i);
 	}
 	//search forward
-	for (unsigned i = point.Id + 1; i < this->dataSet.size() && this->dataSet[i].Ref.SquareLen <= upperB; i++)
+	for (unsigned i = pointId + 1; i < this->dataSet.size() && this->dataSet[i].Ref.SquareLen <= upperB; i++)
 	{
 		if (measure(this->dataSet[pointId], this->dataSet[i]) >= eps)
 			neighbours.push_back(i);
