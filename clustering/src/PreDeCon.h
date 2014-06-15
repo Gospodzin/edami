@@ -1,6 +1,8 @@
 #ifndef PREDECON_H_
 #define PREDECON_H_
 
+#include <ctime>
+
 #include "Point.h"
 #include "EpsNeighborhood.h"
 #include "WeightedNeighborhood.h"
@@ -32,8 +34,8 @@ WeightedNeighborhood<T> & getNeighborhoodForPointId(vector<WeightedNeighborhood<
 }
 
 template<class T>
-void runPredecon(vector<T> & D, double eps, double mu, double lambda, double delta, double kappa){
-	vector<EpsNeighborhood<T>> epsNeighborhoods;
+void runPredecon(vector<T> & D, double eps, double mu, double lambda, double delta, double kappa, vector<double> times){
+
 	vector<WeightedNeighborhood<T>> weightedNeighborhoods;
 
 	int Id = 0;
@@ -42,44 +44,58 @@ void runPredecon(vector<T> & D, double eps, double mu, double lambda, double del
 		++Id;
 	}
 
-	for (int i = 0; i < D.size(); ++i)
-		epsNeighborhoods.push_back(bruteForceEpsNeighborhoodCalc<T>(eps, &D[i], D, measures::euclideanDistance));
+	{
+		vector<EpsNeighborhood<T>> epsNeighborhoods;
 
-	for (int i = 0; i < D.size(); ++i){
-		epsNeighborhoods[i].computeSubspacePreferenceParameters(delta, kappa);
-		D[i].meetsLambdaCondition = (epsNeighborhoods[i].getPreferenceDimensionality() <= lambda);
-	}
+		clock_t start = clock();
+		for (int i = 0; i < D.size(); ++i)
+			epsNeighborhoods.push_back(bruteForceEpsNeighborhoodCalc<T>(eps, &D[i], D, measures::euclideanDistance));
+		clock_t ends = clock();
+		times.push_back((double)(ends - start) / CLOCKS_PER_SEC);
+		cout << "epsNeighborhoods calculation: " << (double)(ends - start) / CLOCKS_PER_SEC << endl;
 
-	// TODO trzymać w pamięci tylko ważone sąsiedztwa
+		start = clock();
+		for (int i = 0; i < D.size(); ++i){
+			epsNeighborhoods[i].computeSubspacePreferenceParameters(delta, kappa);
+			D[i].meetsLambdaCondition = (epsNeighborhoods[i].getPreferenceDimensionality() <= lambda);
+		}
+		ends = clock();
+		times.push_back((double)(ends - start) / CLOCKS_PER_SEC);
+		cout << "computeSubspacePreferenceParameters: " << (double)(ends - start) / CLOCKS_PER_SEC << endl;
 
-	for (int i = 0; i < D.size(); ++i) {
-		vector<EpsNeighborhood<T>> otherNeighborhoods;
-		auto neighbors = epsNeighborhoods[i].getNeighbors();
-		for (int k = 0; k < neighbors.size(); ++k) {
-			for (int j = 0; j < epsNeighborhoods.size(); ++j) {
-				if (epsNeighborhoods[j].getThePoint() == neighbors[k]) {
-					otherNeighborhoods.push_back(epsNeighborhoods[j]);
-					break;
+		start = clock();
+		for (int i = 0; i < D.size(); ++i) {
+			vector<EpsNeighborhood<T>> otherNeighborhoods;
+			auto neighbors = epsNeighborhoods[i].getNeighbors();
+			for (int k = 0; k < neighbors.size(); ++k) {
+				for (int j = 0; j < epsNeighborhoods.size(); ++j) {
+					if (epsNeighborhoods[j].getThePoint() == neighbors[k]) {
+						otherNeighborhoods.push_back(epsNeighborhoods[j]);
+						break;
+					}
 				}
 			}
+			weightedNeighborhoods.push_back(WeightedNeighborhood<T>(eps, epsNeighborhoods[i], otherNeighborhoods, delta, kappa));
+			D[i].isCorePoint = (weightedNeighborhoods[i].getCount() >= mu);
 		}
-		weightedNeighborhoods.push_back(WeightedNeighborhood<T>(eps, epsNeighborhoods[i], otherNeighborhoods, delta, kappa));
-		D[i].isCorePoint = (weightedNeighborhoods[i].getCount() >= mu);
+		ends = clock();
+		times.push_back((double)(ends - start) / CLOCKS_PER_SEC);
+		cout << "weighted neighborhoods calculation: " << (double)(ends - start) / CLOCKS_PER_SEC << endl;
 	}
 
-	for (int i = 0; i < D.size(); ++i) {
-//		cout << "eps " << i << endl;
-//		epsNeighborhoods[i].print();
-//		cout << "weighted" << endl;
-//		weightedNeighborhoods[i].print();
-//		cout << "lambda" << endl;
-//		cout << D[i].meetsLambdaCondition << endl;
-//		cout << "core" << endl;
-//		cout << D[i].isCorePoint << endl;
-	}
+//	for (int i = 0; i < D.size(); ++i) {
+////		cout << "eps " << i << endl;
+////		epsNeighborhoods[i].print();
+////		cout << "weighted" << endl;
+////		weightedNeighborhoods[i].print();
+////		cout << "lambda" << endl;
+////		cout << D[i].meetsLambdaCondition << endl;
+////		cout << "core" << endl;
+////		cout << D[i].isCorePoint << endl;
+//	}
 
+	clock_t start = clock();
 	int clusterId = 0;
-	cout << "========================" << endl;
 	for (int i = 0; i < D.size(); ++i) {
 		if (D[i].ClId == UNCLASSIFIED) {
 			if (D[i].isCorePoint) {
@@ -134,6 +150,9 @@ void runPredecon(vector<T> & D, double eps, double mu, double lambda, double del
 				D[i].ClId = NOISE;
 		}
 	}
+	clock_t ends = clock();
+	times.push_back((double)(ends - start) / CLOCKS_PER_SEC);
+	cout << "predecon run: " << (double)(ends - start) / CLOCKS_PER_SEC << endl;
 }
 
 
