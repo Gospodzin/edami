@@ -21,8 +21,16 @@ TISetOfPoints<T>::TISetOfPoints(vector<T>& dataSet) : SetOfPoints<T>(dataSet){}
 template<class T>
 void TISetOfPoints<T>::prepare(double(*measure)(T&, T&))
 {
+	cout << "Calculating ref distances..." << endl;
+	clock_t start = clock();
 	calculateRefDists(getRefP(), measure);
+	clock_t ends = clock();
+	cout << "time: " << (double)(ends - start) / CLOCKS_PER_SEC << endl;
+	start = clock();
+	cout << "Sorting data..." << endl;
 	sortByRefDist();
+	ends = clock();
+	cout << "time: " << (double)(ends - start) / CLOCKS_PER_SEC << endl;
 	this->setIds();
 }
 

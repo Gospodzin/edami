@@ -29,13 +29,16 @@ int main()
 	cin >> eps;
 
 	cout << "Loading data..." << endl;
+	clock_t sstart = clock();
 	vector<DensePoint> data = loader::loadDataDense(filePath);
+	clock_t sends = clock();
+	cout << "Data loading time: " << (double)(sends - sstart) / CLOCKS_PER_SEC << endl;
 
 	cout << "Computing..." << endl;
 	clock_t start = clock();
 	Clustering<DensePoint>::dbscan(data, eps, minPt, (DbScanType)dbScanTypeId, (MeasureType)measureTypeId);
 	clock_t ends = clock();
-	cout << "Run Time: " << ends - start << endl;
+	cout << "Computing Time: " << (double)(ends - start) / CLOCKS_PER_SEC << endl;
 	cout << "Writing out results..." << endl;
 	ofstream resultFile;
 	resultFile.open("result.txt", ios::trunc);
@@ -48,7 +51,7 @@ int main()
 	resultFile.open("runtime.txt", ios::trunc);
 	for (int i = 0; i < data.size(); i++)
 	{
-		runtime << to_string(ends-start);
+		runtime << to_string((double)(ends - start) / CLOCKS_PER_SEC);
 	}
 	runtime.close();
 	cout << "Completed" << endl;

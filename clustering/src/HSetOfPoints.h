@@ -9,7 +9,6 @@ class HSetOfPoints : public SetOfPoints<T>
 {
 public:
 	HSetOfPoints(vector<T>& dataSet);
-	~HSetOfPoints();
 	vector<int> regionQuery(int& point, double eps, double(*measure)(T&, T&));
 	void setIds();
 private:
@@ -22,17 +21,12 @@ HSetOfPoints<T>::HSetOfPoints(vector<T>& dataSet) : SetOfPoints<T>(dataSet)
 	flags.resize(dataSet.size());
 	for (unsigned i = 0; i < dataSet.size(); ++i)
 	{
+		printf("%d\n", i);
 		flags[i].resize(dataSet.size() - i);
 		for (vector<int>::iterator it = flags[i].begin(); it != flags[i].end(); ++it) {
 			*it = NOT_DECIDED;
 		}
 	}
-}
-
-
-template<class T>
-HSetOfPoints<T>::~HSetOfPoints()
-{
 }
 
 template<class T>

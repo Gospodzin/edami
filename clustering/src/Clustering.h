@@ -120,9 +120,16 @@ void Clustering<T>::dbscan(vector<T>& dataSet, double eps, int minPts, DbScanTyp
 	SetOfPoints<T>& setOfPoints = *setOfPointsP;
 
 	//Run DbScan
+	clock_t start = clock();
 	int clusterId = nextId(NOISE);
 	for (int i = 0; i < setOfPoints.size(); i++)
 	{
+		clock_t ends = clock();
+		if ((double)(ends - start) / CLOCKS_PER_SEC > 3)
+		{
+			start = ends;
+			printf("Points processed progress: %d\n", i);
+		}
 		T& point = setOfPoints[i];
 		if (point.ClId == UNCLASSIFIED && expandCluster(setOfPoints, i, clusterId, eps, minPts, measure))
 		{
