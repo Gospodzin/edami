@@ -7,8 +7,10 @@
 namespace measures
 {
 	template<class T> double euclideanDistance(T& p1, T& p2);
+	template<class T> double cosSim(T& p1, T& p2);
 	template<class T> double minusCosSim(T& p1, T& p2);
 	template<class T> double minusNormCosSim(T& p1, T& p2);
+	template<class T> double tanimotoSim(T& p1, T& p2);
 	template<class T> double minusTanimotoSim(T& p1, T& p2);
 	template<class T> double minusNormTanimotoSim(T& p1, T& p2);
 }
@@ -30,6 +32,15 @@ double measures::euclideanDistance(T& p1, T& p2) {
 }
 
 template<class T>
+double measures::cosSim(T& p1, T& p2) {
+	double dotProd = p1.dotProd(p2);
+	double p1SquareLength = p1.dotProd(p1);
+	double p2SquareLength = p2.dotProd(p2);
+
+	return dotProd / sqrt(p1SquareLength*p2SquareLength);
+}
+
+template<class T>
 double measures::minusCosSim(T& p1, T& p2) {
 	double dotProd = p1.dotProd(p2);
 	double p1SquareLength = p1.dotProd(p1);
@@ -42,6 +53,15 @@ template<class T>
 double measures::minusNormCosSim(T& p1, T& p2) {
 	double dotProd = p1.dotProd(p2);
 	return -dotProd;
+}
+
+template<class T>
+double measures::tanimotoSim(T& p1, T& p2) {
+	double dotProd = p1.dotProd(p2);
+	double p1SquareLength = p1.dotProd(p1);
+	double p2SquareLength = p2.dotProd(p2);
+
+	return dotProd / (p1SquareLength + p2SquareLength - dotProd);
 }
 
 template<class T>

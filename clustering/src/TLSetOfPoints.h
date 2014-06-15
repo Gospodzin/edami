@@ -29,13 +29,13 @@ vector<int> TLSetOfPoints<T>::regionQuery(int& pointId, double eps, double(*meas
 	double upperB = dataSet[pointId].Ref.SquareLen / eps;
 	Point& point = dataSet[pointId];
 	vector<int> neighbours;
-	//search upwards
+	//search backward
 	for (int i = point.Id; i >= 0 && dataSet[i].Ref.SquareLen >= lowerB; i--)
 	{
 		if (measure(dataSet[pointId], dataSet[i]) >= eps)
 			neighbours.push_back(i);
 	}
-	//search downwards
+	//search forward
 	for (unsigned i = point.Id + 1; i < dataSet.size() && dataSet[i].Ref.SquareLen <= upperB; i++)
 	{
 		if (measure(dataSet[pointId], dataSet[i]) >= eps)

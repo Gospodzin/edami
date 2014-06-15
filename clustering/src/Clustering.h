@@ -17,17 +17,14 @@ enum DbScanType
 	Basic,
 	Half,
 	TI,
-	CosLengths,
-	TanimotoLengths,
+	Lengths,
 };
 
 enum MeasureType
 {
 	EuclideanDist,
 	CosSim,
-	NormCosSim,
 	TanimotoSim,
-	NormTanimotoSim
 };
 
 template<class T>
@@ -43,67 +40,86 @@ private:
 template<class T>
 void Clustering<T>::dbscan(vector<T>& dataSet, double eps, int minPts, DbScanType dbScanType, MeasureType measureType)
 {
+	//Choose DbScan
 	SetOfPoints<T>* setOfPointsP = NULL;
+	double(*measure)(T&, T&) = NULL;
 	switch (dbScanType)
 	{
 	case DbScanType::Basic:
 		setOfPointsP = new BaseSetOfPoints<T>(dataSet);
+		switch (measureType)
+		{
+		case MeasureType::EuclideanDist:
+			measure = measures::euclideanDistance;
+			break;
+		case MeasureType::CosSim:
+			measure = measures::minusNormCosSim;
+			eps = -eps;
+			setOfPointsP->normalize();
+			break;
+		case MeasureType::TanimotoSim:
+			measure = measures::euclideanDistance;
+			eps = -eps;
+			setOfPointsP->normalize();
+			break;
+		}
 		break;
 	case DbScanType::Half:
 		setOfPointsP = new HSetOfPoints<T>(dataSet);
+		switch (measureType)
+		{
+		case MeasureType::EuclideanDist:
+			measure = measures::euclideanDistance;
+			break;
+		case MeasureType::CosSim:
+			measure = measures::minusNormCosSim;
+			eps = -eps;
+			setOfPointsP->normalize();
+			break;
+		case MeasureType::TanimotoSim:
+			measure = measures::euclideanDistance;
+			eps = -eps;
+			setOfPointsP->normalize();
+			break;
+		}
 		break;
 	case DbScanType::TI:
 		setOfPointsP = new TISetOfPoints<T>(dataSet);
+		switch (measureType)
+		{
+		case MeasureType::EuclideanDist:
+			measure = measures::euclideanDistance;
+			break;
+		case MeasureType::CosSim:
+			measure = measures::euclideanDistance;
+			eps = sqrt(2 - 2 * eps);
+			break;
+		case MeasureType::TanimotoSim:
+			throw "Error";
+			break;
+		}
+		((TISetOfPoints<T>*)setOfPointsP)->prepare(measure);
 		break;
-	case DbScanType::CosLengths:
-		setOfPointsP = new LSetOfPoints<T>(dataSet);
-		break;
-	case DbScanType::TanimotoLengths:
-		setOfPointsP = new TLSetOfPoints<T>(dataSet);
+	case DbScanType::Lengths:
+		switch (measureType)
+		{
+		case MeasureType::EuclideanDist:
+			throw "Error";
+			break;
+		case MeasureType::CosSim:
+			measure = measures::cosSim;
+			setOfPointsP = new LSetOfPoints<T>(dataSet);
+			break;
+		case MeasureType::TanimotoSim:
+			measure = measures::tanimotoSim;
+			setOfPointsP = new TLSetOfPoints<T>(dataSet);
+			break;
+		}
 		break;
 	}
 	SetOfPoints<T>& setOfPoints = *setOfPointsP;
 
-	double(*measure)(T&, T&) = NULL;
-	switch (measureType)
-	{
-	case MeasureType::EuclideanDist:
-		measure = measures::euclideanDistance;
-		break;
-	case MeasureType::CosSim:
-		if (dbScanType == DbScanType::TI)
-		{
-			measure = measures::euclideanDistance;
-			eps = sqrt(2 - 2 * eps);
-		}
-		else if (dbScanType == DbScanType::CosLengths)
-		{
-		}
-		else
-		{
-			measure = measures::minusNormCosSim;
-			eps = -eps;
-		}
-		setOfPoints.normalize();
-		break;
-	case MeasureType::TanimotoSim:
-		measure = measures::minusNormTanimotoSim;
-		if (dbScanType == DbScanType::TanimotoLengths)
-		{
-		}
-		else
-		{
-			eps = -eps;
-			setOfPoints.normalize();
-		}
-		break;
-	}
-
-	if (dbScanType == DbScanType::TI)
-	{
-		((TISetOfPoints<T>&)setOfPoints).prepare(measure);
-	}
-
+	//Run DbScan
 	int clusterId = nextId(NOISE);
 	for (int i = 0; i < setOfPoints.size(); i++)
 	{

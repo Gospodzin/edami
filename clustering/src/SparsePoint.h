@@ -9,11 +9,21 @@ struct SparsePair
 	double Value;
 };
 
-class SparsePoint
+class SparsePoint : public Point
 {
 public:
 	SparsePoint(){}
-	~SparsePoint(){}
+	SparsePoint(vector<SparsePair> coordinates) : Coordinates(coordinates) {}
+	void print();
+	//	Point& getProjectionOntoNthAttr(int n);
+
+	int size() const;
+	void normalize();
+	void calcSquareLength();
+	double dotProd(Point& point);
+
+	double& operator[](int n);
+	bool operator==(Point& other);
 
 	vector<SparsePair> Coordinates;
 };

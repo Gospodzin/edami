@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="BaseSetOfPoints&lt;T&gt;" Collapsed="true">
+    <Position X="0.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\BaseSetOfPoints.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="HSetOfPoints&lt;T&gt;" Collapsed="true">
+    <Position X="5.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAAAAAAEAAAACAAAAAAAAAAAAAAAAAAAACAAAQ=</HashCode>
+      <FileName>src\HSetOfPoints.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="LSetOfPoints&lt;T&gt;" Collapsed="true">
+    <Position X="9.75" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAADCEAAAAAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\LSetOfPoints.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SetOfPoints&lt;T&gt;" Collapsed="true">
+    <Position X="5.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAQEAAAAKAAAAAAAAEAAAAAAAAAAAAAAAI=</HashCode>
+      <FileName>src\SetOfPoints.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TISetOfPoints&lt;T&gt;" Collapsed="true">
+    <Position X="3" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgBAAAAAEAAAAAAQAAAAAAQAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>src\TISetOfPoints.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TLSetOfPoints&lt;T&gt;" Collapsed="true">
+    <Position X="7.5" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAABAAADCEAAAAAAAAAAAAAAAAAAAAAAAAAACAAA=</HashCode>
+      <FileName>src\TLSetOfPoints.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DensePoint" Collapsed="true">
+    <Position X="2.75" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAQAAAAIIAAAQAAIAEAAAAAAAAAABAACAA=</HashCode>
+      <FileName>src\DensePoint.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Point" Collapsed="true">
+    <Position X="1.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQCAAAAAAAQggAAAIEAAQAAAAEAAAAAgAAAABAACgA=</HashCode>
+      <FileName>src\Point.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SparsePoint" Collapsed="true">
+    <Position X="0.5" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAQAAAAAIAAAQAIIAEAAAAAAAAAABAACAA=</HashCode>
+      <FileName>src\SparsePoint.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Clustering&lt;T&gt;" Collapsed="true">
+    <Position X="12.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAARAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\Clustering.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Struct Name="SparsePair" Collapsed="true">
+    <Position X="12.25" Y="1.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>src\SparsePoint.h</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Enum Name="DbScanType" Collapsed="true">
+    <Position X="12.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAIAAAAAAAAAAAAAAAIAAAAAAAAAAAACACAA=</HashCode>
+      <FileName>src\Clustering.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="MeasureType" Collapsed="true">
+    <Position X="14" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAAABAAAAAAAAAAAAAAAAAABA=</HashCode>
+      <FileName>src\Clustering.h</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

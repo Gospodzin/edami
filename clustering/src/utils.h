@@ -8,8 +8,6 @@
 
 namespace utils
 {
-	vector<DensePoint> loadData(string fileName);
-	vector<DensePoint> loadDataMichal(string fileName);
 	template<class T> void changeClIds(vector<int> seeds, SetOfPoints<T>& setOfPoints, int clId);
 	void deleteSeed(vector<int>& seeds, int& seed);
 	void printVector(vector<double> vec);

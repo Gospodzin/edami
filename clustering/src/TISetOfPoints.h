@@ -31,13 +31,13 @@ vector<int> TISetOfPoints<T>::regionQuery(int& pointId, double eps, double(*meas
 {
 	T& point = dataSet[pointId];
 	vector<int> neighbours;
-	//search upwards
+	//search backward
 	for (int i = pointId; i >= 0 && abs(point.Ref.Dist - dataSet[i].Ref.Dist) <= eps; i--)
 	{
 		if (measure(point, dataSet[i]) <= eps)
 			neighbours.push_back(i);
 	}
-	//search downwards
+	//search forward
 	for (unsigned i = pointId + 1; i < dataSet.size() && abs(point.Ref.Dist - dataSet[i].Ref.Dist) <= eps; i++)
 	{
 		if (measure(point, dataSet[i]) <= eps)
