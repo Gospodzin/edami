@@ -21,7 +21,7 @@ SetOfPoints<T>::SetOfPoints(vector<T>& dataSet)
 { 
 	this->dataSet = dataSet; 
 	setIds();
-};
+}
 
 template<class T>
 void SetOfPoints<T>::setIds()
@@ -45,7 +45,7 @@ T& SetOfPoints<T>::operator[](int n)
 template<class T>
 void SetOfPoints<T>::normalize()
 {
-	for (vector<T>::iterator it = dataSet.begin(); it != dataSet.end(); ++it)
+	for (typename vector<T>::iterator it = dataSet.begin(); it != dataSet.end(); ++it)
 	{
 		it->normalize();
 	}

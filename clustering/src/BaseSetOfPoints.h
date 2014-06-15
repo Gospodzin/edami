@@ -11,14 +11,14 @@ public:
 };
 
 template<class T>
-BaseSetOfPoints<T>::BaseSetOfPoints(vector<T>& dataSet) : SetOfPoints(dataSet){}
+BaseSetOfPoints<T>::BaseSetOfPoints(vector<T>& dataSet) : SetOfPoints<T>(dataSet){}
 
 template<class T>
 vector<int> BaseSetOfPoints<T>::regionQuery(int& pointId, double eps, double(*measure)(T&, T&))
 {
 	vector<int> neighbours;
-	for (int i = 0; i < dataSet.size();i++){
-		if (measure(dataSet[pointId], dataSet[i]) <= eps)
+	for (int i = 0; i < this->dataSet.size();i++){
+		if (measure(this->dataSet[pointId], this->dataSet[i]) <= eps)
 			neighbours.push_back(i);
 	}
 	return neighbours;

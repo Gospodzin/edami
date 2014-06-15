@@ -1,4 +1,4 @@
-#include "src/utils.h"
+#include "utils.h"
 
 void utils::printVector(vector<double> vec) {
 	cout << "(";

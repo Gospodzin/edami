@@ -1,13 +1,13 @@
 #include <iostream>
 #include <fstream>
-#include "src/utils.h"
-#include "src/Clustering.h"
-#include "src/loader.h"
+#include "utils.h"
+#include "Clustering.h"
+#include "loader.h"
 
 using namespace std;
 
 
-void main()
+int main()
 {
 	string filePath;
 	int dbScanTypeId;

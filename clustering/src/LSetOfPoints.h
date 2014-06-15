@@ -16,7 +16,7 @@ private:
 };
 
 template<class T>
-LSetOfPoints<T>::LSetOfPoints(vector<T>& dataSet) : SetOfPoints(dataSet)
+LSetOfPoints<T>::LSetOfPoints(vector<T>& dataSet) : SetOfPoints<T>(dataSet)
 {
 	calculateSquareLengths();
 	sortByLength();
@@ -25,20 +25,20 @@ LSetOfPoints<T>::LSetOfPoints(vector<T>& dataSet) : SetOfPoints(dataSet)
 template<class T>
 vector<int> LSetOfPoints<T>::regionQuery(int& pointId, double eps, double(*measure)(T&, T&))
 {
-	double lowerB = eps*eps*dataSet[pointId].Ref.SquareLen;
-	double upperB = dataSet[pointId].Ref.SquareLen / (eps*eps);
-	Point& point = dataSet[pointId];
+	double lowerB = eps*eps*this->dataSet[pointId].Ref.SquareLen;
+	double upperB = this->dataSet[pointId].Ref.SquareLen / (eps*eps);
+	Point& point = this->dataSet[pointId];
 	vector<int> neighbours;
 	//search backward
-	for (int i = point.Id; i >= 0 && dataSet[i].Ref.SquareLen >= lowerB; i--)
+	for (int i = point.Id; i >= 0 && this->dataSet[i].Ref.SquareLen >= lowerB; i--)
 	{
-		if (measure(dataSet[pointId], dataSet[i]) >= eps)
+		if (measure(this->dataSet[pointId], this->dataSet[i]) >= eps)
 			neighbours.push_back(i);
 	}
 	//search forward
-	for (unsigned i = point.Id + 1; i < dataSet.size() && dataSet[i].Ref.SquareLen <= upperB; i++)
+	for (unsigned i = point.Id + 1; i < this->dataSet.size() && this->dataSet[i].Ref.SquareLen <= upperB; i++)
 	{
-		if (measure(dataSet[pointId], dataSet[i]) >= eps)
+		if (measure(this->dataSet[pointId], this->dataSet[i]) >= eps)
 			neighbours.push_back(i);
 	}
 
@@ -48,14 +48,14 @@ vector<int> LSetOfPoints<T>::regionQuery(int& pointId, double eps, double(*measu
 template<class T>
 void LSetOfPoints<T>::calculateSquareLengths()
 {
-	for (vector<T>::iterator it = dataSet.begin(); it != dataSet.end(); ++it)
+	for (typename vector<T>::iterator it = this->dataSet.begin(); it != this->dataSet.end(); ++it)
 		it->calcSquareLength();
 }
 
 template<class T>
 void LSetOfPoints<T>::sortByLength()
 {
-	std::sort(dataSet.begin(), dataSet.end(), [](T a, T b) {
+	std::sort(this->dataSet.begin(), this->dataSet.end(), [](T a, T b) {
 		return a.Ref.Dist <  b.Ref.Dist;
 	});
 }

@@ -16,31 +16,31 @@ private:
 };
 
 template<class T>
-TISetOfPoints<T>::TISetOfPoints(vector<T>& dataSet) : SetOfPoints(dataSet){}
+TISetOfPoints<T>::TISetOfPoints(vector<T>& dataSet) : SetOfPoints<T>(dataSet){}
 
 template<class T>
 void TISetOfPoints<T>::prepare(double(*measure)(T&, T&))
 {
 	calculateRefDists(getRefP(), measure);
 	sortByRefDist();
-	setIds();
+	this->setIds();
 }
 
 template<class T>
 vector<int> TISetOfPoints<T>::regionQuery(int& pointId, double eps, double(*measure)(T&, T&))
 {
-	T& point = dataSet[pointId];
+	T& point = this->dataSet[pointId];
 	vector<int> neighbours;
 	//search backward
-	for (int i = pointId; i >= 0 && abs(point.Ref.Dist - dataSet[i].Ref.Dist) <= eps; i--)
+	for (int i = pointId; i >= 0 && abs(point.Ref.Dist - this->dataSet[i].Ref.Dist) <= eps; i--)
 	{
-		if (measure(point, dataSet[i]) <= eps)
+		if (measure(point, this->dataSet[i]) <= eps)
 			neighbours.push_back(i);
 	}
 	//search forward
-	for (unsigned i = pointId + 1; i < dataSet.size() && abs(point.Ref.Dist - dataSet[i].Ref.Dist) <= eps; i++)
+	for (unsigned i = pointId + 1; i < this->dataSet.size() && abs(point.Ref.Dist - this->dataSet[i].Ref.Dist) <= eps; i++)
 	{
-		if (measure(point, dataSet[i]) <= eps)
+		if (measure(point, this->dataSet[i]) <= eps)
 			neighbours.push_back(i);
 	}
 
@@ -50,7 +50,7 @@ vector<int> TISetOfPoints<T>::regionQuery(int& pointId, double eps, double(*meas
 template<class T>
 void TISetOfPoints<T>::sortByRefDist()
 {
-	std::sort(dataSet.begin(), dataSet.end(), [](T a, T b) {
+	std::sort(this->dataSet.begin(), this->dataSet.end(), [](T a, T b) {
 		return a.Ref.Dist <  b.Ref.Dist;
 	});
 }
@@ -58,17 +58,17 @@ void TISetOfPoints<T>::sortByRefDist()
 template<class T>
 void TISetOfPoints<T>::calculateRefDists(T refP, double(*measure)(T&, T&))
 {
-	for (vector<T>::iterator it = dataSet.begin(); it != dataSet.end(); ++it)
+	for (typename vector<T>::iterator it = this->dataSet.begin(); it != this->dataSet.end(); ++it)
 		it->Ref.Dist = measure(*it, refP);
 }
 
 template<class T>
 T TISetOfPoints<T>::getRefP()
 {
-	vector<double> max(dataSet[0].size());
-	for (vector<T>::iterator it = dataSet.begin(); it != dataSet.end(); ++it)
+	vector<double> max(this->dataSet[0].size());
+	for (typename vector<T>::iterator it = this->dataSet.begin(); it != this->dataSet.end(); ++it)
 	{
-		for (int i = 0; i < dataSet[0].size(); i++)
+		for (int i = 0; i < this->dataSet[0].size(); i++)
 		{
 			if (max[i] < abs((*it)[i]))
 			{
