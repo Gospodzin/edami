@@ -123,7 +123,7 @@ int main()
 		resultFile.open("result-predecon.txt", ios::trunc);
 		for (int i = 0; i < data.size(); i++)
 		{
-			resultFile << to_string(data[i].ClId) + "\n";
+			resultFile << data[i].toString() + "\n";
 		}
 		resultFile.close();
 		ofstream runtime;

@@ -1,5 +1,8 @@
 #include "DensePoint.h"
 
+#include <iterator>
+#include <iostream>
+
 void DensePoint::print()
 {
 	string toPrint = "(";
@@ -14,6 +17,35 @@ void DensePoint::print()
 	toPrint[toPrint.size() - 1] = ')';
 	toPrint = toPrint + "\tClId=" + to_string(ClId);
 	cout << toPrint << endl;
+}
+
+string DensePoint::toString(){
+	string toPrint = "(";
+		for (vector<double>::iterator it = Coordinates.begin(); it != Coordinates.end(); ++it)
+		{
+			ostringstream strs;
+			strs << (*it);
+			string str = strs.str();
+			toPrint += str;
+			toPrint += ",";
+		}
+		toPrint[toPrint.size()-1] = ')';
+		toPrint = toPrint + "\tcluster Id = " + to_string(ClId) + " subspace pref: ";
+
+		std::ostringstream oss;
+
+		  if (!SubspacePreferenceVector.empty())
+		  {
+		    // Convert all but the last element to avoid a trailing ","
+		    copy(SubspacePreferenceVector.begin(), SubspacePreferenceVector.end()-1,
+		        ostream_iterator<int>(oss, ","));
+
+		    // Now add the last element with no delimiter
+		    oss << SubspacePreferenceVector.back();
+		  }
+
+		toPrint +=oss.str();
+		return toPrint;
 }
 
 int DensePoint::size() const

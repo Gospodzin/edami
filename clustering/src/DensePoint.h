@@ -9,6 +9,7 @@ public:
 	DensePoint();
 	DensePoint(vector<double> coordinates) : Coordinates(coordinates) {}
 	void print();
+	string toString();
 //	Point& getProjectionOntoNthAttr(int n);
 
 	int size() const;
@@ -20,6 +21,8 @@ public:
 	bool operator==(Point& other);
 
 	vector<double> Coordinates;
+
+	vector <double> SubspacePreferenceVector;
 };
 
 #endif

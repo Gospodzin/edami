@@ -18,7 +18,7 @@ public:
 
 	double getVarianceAlongAttr(int n);
 	void computeSubspacePreferenceParameters(double delta, double kappa);
-	vector<double> getSubspacePreferenceVector();
+	vector <double> getSubspacePreferenceVector();
 	int getPreferenceDimensionality();
 	double getPreferenceWeightedDistanceTo(T * point);
 };

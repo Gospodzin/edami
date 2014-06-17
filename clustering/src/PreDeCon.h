@@ -58,6 +58,7 @@ void runPredecon(vector<T> & D, double eps, double mu, double lambda, double del
 		for (int i = 0; i < D.size(); ++i){
 			epsNeighborhoods[i].computeSubspacePreferenceParameters(delta, kappa);
 			D[i].meetsLambdaCondition = (epsNeighborhoods[i].getPreferenceDimensionality() <= lambda);
+			D[i].SubspacePreferenceVector = epsNeighborhoods[i].getSubspacePreferenceVector();
 		}
 		ends = clock();
 		times.push_back((double)(ends - start) / CLOCKS_PER_SEC);
